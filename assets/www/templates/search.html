@@ -1,0 +1,27 @@
+<ion-view View-title="Search">
+  <ion-nav-bar class="bar-balanced">
+    <ion-nav-back-button><i class="ion-chevron-left" style="padding: 0 10px;"></i></ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content class="has-header">
+    <label class="item-input-wrapper">
+      <i class="icon ion-ios7-search placeholder-icon"></i>
+      <input type="search" ng-model="filter">
+    </label>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="song in songs | filter:filter" type="item-text-wrap" href="#/tab/search/{{song.id}}">
+        <img ng-src="{{song.album}}">
+        <h2>{{song.title}}</h2>
+        <p>{{song.artist}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
+
+<script id="detail.html" type="text/ng-template">
+    <ion-view title="{{song.id}}">
+      <ion-content class="padding">
+        {{song.id}} {{song.title}}
+      </ion-content>
+    </ion-view>
+</script>

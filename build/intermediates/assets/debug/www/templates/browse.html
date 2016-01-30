@@ -1,0 +1,16 @@
+<ion-view view-title="Browse">
+  <ion-nav-bar class="bar-balanced">
+    <ion-nav-back-button><i class="ion-chevron-left" style="padding: 0 10px;"></i></ion-nav-back-button>
+  </ion-nav-bar>
+
+  <ion-content class="has-header">
+    <ion-list >
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="song in songs" type="item-text-wrap" >
+          <img ng-src="{{song.album}}" ng-click="go({{song.id}})">
+          <h2 ng-click="go({{song.id}})">{{song.title}}</h2>
+          <p ng-click="go({{song.id}})">{{song.artist}}</p>
+          <i class="icon ion-close-circled delete" ng-click="songs.splice($index, 1)"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,13 @@
+.tabs {height: 60px !important; margin: 10px 0 !important; padding: 0 !important;}
+.tabs .tabs-item {max-width: none !important; width: 100% !important;}
+
+.has-header {margin: 20px 0 !important;}
+
+.delete {font-size: 16px; color: #cc0000; float: right;}
+
+.info {width: 90%; margin: 50px auto;}
+.info p {font-size: 12px; color: #CCC; margin: 10px auto; text-align: center;}
+.info label {font-size: 13px; color: #888; font-weight: bold; margin: 5px auto 0; display: block; text-align: center;}
+.info span {margin: 0; font-weight: bold; text-align: center; display: block;}
+
+.editInfo {width: 100px; height: 30px; font-size: 12px; color: #FFF; background: #33cd5f; font-weight: bold; display: block; margin: 30px auto; border: none; outline: none; border-radius: 10px;}
