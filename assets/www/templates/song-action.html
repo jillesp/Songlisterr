@@ -1,0 +1,35 @@
+
+<ion-view view-title="{{song.songTitle}}">
+  <ion-nav-bar class="bar-balanced">
+      <ion-nav-back-button><i class="ion-android-arrow-back" style="padding: 0 10px;"></i></ion-nav-back-button>
+      <ion-nav-buttons side="right"><button class="button" ng-click="editSong({{song.songId}})"><i class="ion-edit"></i></button></ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content class="padding">
+     <ion-list >
+      <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap" >
+          <img ng-src="https://cdn3.iconfinder.com/data/icons/social-icons-5/607/YouTube_Play.png">
+          <h2 ng-click="goYoutube">Visit on Youtube</h2>
+      </ion-item>
+      <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap" >
+          <img ng-src="http://www.investstockholm.com/globalassets/images/logo_spotify_300dpi_2015.png">
+          <h2 ng-click="goSpotify">Visit on Spotify</h2>
+      </ion-item>
+      <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap" >
+          <img ng-src="http://wolfisbikeshop.de/jom/images/Website/OPEN-mountain-bike-brand-logo.gif">
+          <h2 ng-click="goOthers">Open in Others</h2>
+      </ion-item>
+      <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap" >
+          <img ng-src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Music_player_logo.png">
+          <h2 ng-click="addToSetlist">Add to Setlist</h2>
+      </ion-item>
+      <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap" >
+          <img ng-src="http://www-sop.inria.fr/members/Alexis.Joly/BelgaLogos/download.png">
+          <h2 ng-click="saveOffline">Save for Offline Viewing</h2>
+      </ion-item>
+      <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap" >
+          <img ng-src="https://cdn3.iconfinder.com/data/icons/musthave/256/Remove.png">
+          <h2 ng-click="delete({{song.songId}})">Delete</h2>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
