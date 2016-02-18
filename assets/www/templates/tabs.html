@@ -1,12 +1,24 @@
 
 <ion-tabs class="tabs-icon-top tabs-color-active-positive">
 
-  <ion-tab title="Browse Songs" icon-on="ion-ios7-mic-outline" icon-off="ion-ios7-mic" href="#/tab/browse">
+  <ion-tab title="Search" icon="ion-android-search" href="#/tab/browse">
     <ion-nav-view name="browse-songs"></ion-nav-view>
   </ion-tab>
 
-  <ion-tab title="Search Songs" icon-on="ion-ios7-search" icon-off="ion-ios7-search-strong" href="#/tab/search">
+  <ion-tab title="Songs" icon="ion-ios-musical-notes" href="#/tab/browse">
+    <ion-nav-view name="browse-songs"></ion-nav-view>
+  </ion-tab>
+
+   <ion-tab title="Practice" icon="ion-ios-circle-filled" href="#/tab/browse">
     <ion-nav-view name="search-songs"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab title="Set Lists" icon="ion-ios-list" href="#/tab/setlist">
+    <ion-nav-view name="setlist"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab title="Profile" icon="ion-ios-person" href="#/tab/setlist">
+    <ion-nav-view name="setlist"></ion-nav-view>
   </ion-tab>
 
 </ion-tabs>

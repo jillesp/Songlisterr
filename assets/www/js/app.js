@@ -1,5 +1,10 @@
+//ANGULAR
+angular.module('songApp', ['ionic', 'songApp.controllers', 'songApp.services'])
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+.config(function($ionicConfigProvider) {
+    $ionicConfigProvider.tabs.position('bottom');
+    $ionicConfigProvider.navBar.alignTitle('center');
+})
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -12,66 +17,61 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   });
 
-  Parse.initialize("asitsg0cnXyDIqALjdGH4cfa94kUCHndl8vJSBFO", "L4o4ppzBe6jPMmygvi6HulGllREuTwwklXRvWWXV");
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
 
-    .state('tab', {
+  .state('tab', {
     url: "/tab",
     abstract: true,
     templateUrl: "templates/tabs.html"
   })
-  .state('tab.songs', {
-      url: '/browse',
-      views: {
-        'browse-songs': {
-          templateUrl: 'templates/browse.html',
-          controller: 'BrowseCtrl'
-        }
-      }
-   })
-   .state('tab.song-info', {
-      url: '/browse/:songId',
-      views: {
-        'browse-songs': {
-          templateUrl: 'templates/song-info.html',
-          controller: 'SongInfoCtrl'
-        }
-      }
-   })
-   .state('tab.search', {
-      url: '/search',
-      views: {
-        'search-songs': {
-          templateUrl: 'templates/search.html',
-          controller: 'SearchCtrl'
-        }
-      }
-    })
 
-    .state('tab.search-info', {
-      url: '/search/:songId',
-      views: {
-        'search-songs': {
-          templateUrl: 'templates/search-info.html',
-          controller: 'SearchInfoCtrl'
-        }
-      }
-    })
+      .state('tab.songs', {
+          url: '/browse',
+          views: {
+            'browse-songs': {
+              templateUrl: 'templates/browse.html',
+              controller: 'BrowseCtrl'
+            }
+          }
+       })
 
-    .state('tab.song-edit', {
-      url: '/edit/:songId',
-      views: {
-        'edit-song': {
-          templateUrl:'templates/edit-info.html',
-          controller: 'EditSongCtrl'
-        }
-      }
-    });
+      .state('song', {
+           url: "/song",
+           abstract: true,
+           templateUrl: "templates/song.html"
+      })
 
-  $urlRouterProvider.otherwise('/tab/browse');
-  //$urlRouterProvider.otherwise('/tab/edit/2');
+          .state('song.song-info', {
+              url: '/:songId/info',
+              views: {
+                'song-info': {
+                  templateUrl: 'templates/song-info.html',
+                  controller: 'SongInfoCtrl'
+                }
+              }
+          })
+          .state('song.song-action', {
+             url: '/:songId/action',
+             views: {
+               'song-action': {
+                 templateUrl: 'templates/song-action.html',
+                 controller: 'SongActionCtrl'
+               }
+            }
+          })
+              .state('song.song-edit', {
+                 url: '/:songId/edit',
+                 views: {
+                   'song-action': {
+                     templateUrl: 'templates/edit-song.html',
+                     controller: 'SongEditCtrl'
+                   }
+                 }
+              })
+
+  $urlRouterProvider.otherwise('/song/1/edit');
 });

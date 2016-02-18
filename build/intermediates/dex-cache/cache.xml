@@ -2,18 +2,18 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Giles\Desktop\android\src\Parse-1.12.0.jar"
+        jar="C:\Users\Giles\Desktop\Shit II\android\build\intermediates\exploded-aar\android\CordovaLib\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="4c3b35e42f4fc15f8d54b6e52b798125483227b8">
+        <dex dex="C:\Users\Giles\Desktop\Shit II\android\build\intermediates\pre-dexed\debug\classes-abbe9e8e1c8ba8196ec79afca604eebdad7256cb.jar" />
+    </item>
+    <item
+        jar="C:\Users\Giles\Desktop\Shit II\android\src\Parse-1.12.0.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="6b89fba32ca73eda4b6a87ec479fac61818973f2">
-        <dex dex="C:\Users\Giles\Desktop\android\build\intermediates\pre-dexed\debug\Parse-1.12.0-ae014d2bb59ce7430c47244c9a16aeaedc120afb.jar" />
-    </item>
-    <item
-        jar="C:\Users\Giles\Desktop\android\build\intermediates\exploded-aar\android\CordovaLib\unspecified\jars\classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="864391f9a3ce87557820e427c26a6db003e6044c">
-        <dex dex="C:\Users\Giles\Desktop\android\build\intermediates\pre-dexed\debug\classes-842ee8c62fbc28762968c1f11c38f1457fb3feab.jar" />
+        <dex dex="C:\Users\Giles\Desktop\Shit II\android\build\intermediates\pre-dexed\debug\Parse-1.12.0-08a648bfab632e6c917d4bc64a175c3153786936.jar" />
     </item>
 
 </items>
