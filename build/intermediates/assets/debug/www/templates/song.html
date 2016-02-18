@@ -1,0 +1,10 @@
+
+<ion-tabs class="tabs-icon-top tabs-color-active-positive" ng-controller="SongCtrl">
+  <ion-tab title="Info" icon="ion-ios-information" href="#/{{sharedProperty.data}}/info">
+    <ion-nav-view name="song-info"></ion-nav-view>
+  </ion-tab>
+
+   <ion-tab title="Actions" icon="ion-ios-play" href="song/{{sharedProperty.data}}/action">
+    <ion-nav-view name="song-action"></ion-nav-view>
+  </ion-tab>
+</ion-tabs>
