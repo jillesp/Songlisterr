@@ -1166,7 +1166,7 @@ function logUnfiredChannels(arr) {
 
 window.setTimeout(function() {
     if (channel.onDeviceReady.state != 2) {
-        console.log('deviceready has not fired after 5 seconds.');
+        //console.log('deviceready has not fired after 5 seconds.');
         logUnfiredChannels(platformInitChannelsArray);
         logUnfiredChannels(channel.deviceReadyChannelsArray);
     }

@@ -1,4 +1,3 @@
-//ANGULAR
 angular.module('songApp', ['ionic', 'songApp.controllers', 'songApp.services'])
 
 .config(function($ionicConfigProvider) {
@@ -17,6 +16,19 @@ angular.module('songApp', ['ionic', 'songApp.controllers', 'songApp.services'])
     }
   });
 
+})
+
+.config(function($provide) {
+    $provide.decorator('$state', function($delegate, $stateParams) {
+        $delegate.forceReload = function() {
+            return $delegate.go($delegate.current, $stateParams, {
+                reload: true,
+                inherit: false,
+                notify: true
+            });
+        };
+        return $delegate;
+    });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -66,12 +78,23 @@ angular.module('songApp', ['ionic', 'songApp.controllers', 'songApp.services'])
               .state('song.song-edit', {
                  url: '/:songId/edit',
                  views: {
-                   'song-action': {
+                   'song-edit': {
                      templateUrl: 'templates/edit-song.html',
                      controller: 'SongEditCtrl'
                    }
                  }
               })
 
-  $urlRouterProvider.otherwise('/song/1/edit');
+              .state('song.song-add-setlist', {
+                 url: '/:songId/setlist',
+                 views: {
+                   'song-action': {
+                     templateUrl: 'templates/add-to-setlist.html',
+                     controller: 'SongAddToSetlistCtrl'
+                   }
+                 }
+              })
+
+
+  $urlRouterProvider.otherwise('tab/browse');
 });
