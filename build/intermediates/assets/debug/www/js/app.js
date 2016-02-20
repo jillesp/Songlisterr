@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 //ANGULAR
+=======
+>>>>>>> jilles-stable
 angular.module('songApp', ['ionic', 'songApp.controllers', 'songApp.services'])
 
 .config(function($ionicConfigProvider) {
@@ -17,6 +20,22 @@ angular.module('songApp', ['ionic', 'songApp.controllers', 'songApp.services'])
     }
   });
 
+<<<<<<< HEAD
+=======
+})
+
+.config(function($provide) {
+    $provide.decorator('$state', function($delegate, $stateParams) {
+        $delegate.forceReload = function() {
+            return $delegate.go($delegate.current, $stateParams, {
+                reload: true,
+                inherit: false,
+                notify: true
+            });
+        };
+        return $delegate;
+    });
+>>>>>>> jilles-stable
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -44,6 +63,7 @@ angular.module('songApp', ['ionic', 'songApp.controllers', 'songApp.services'])
            abstract: true,
            templateUrl: "templates/song.html"
       })
+<<<<<<< HEAD
 
           .state('song.song-info', {
               url: '/:songId/info',
@@ -74,4 +94,47 @@ angular.module('songApp', ['ionic', 'songApp.controllers', 'songApp.services'])
               })
 
   $urlRouterProvider.otherwise('/song/1/edit');
+=======
+
+          .state('song.song-info', {
+              url: '/:songId/info',
+              views: {
+                'song-info': {
+                  templateUrl: 'templates/song-info.html',
+                  controller: 'SongInfoCtrl'
+                }
+              }
+          })
+          .state('song.song-action', {
+             url: '/:songId/action',
+             views: {
+               'song-action': {
+                 templateUrl: 'templates/song-action.html',
+                 controller: 'SongActionCtrl'
+               }
+            }
+          })
+              .state('song.song-edit', {
+                 url: '/:songId/edit',
+                 views: {
+                   'song-edit': {
+                     templateUrl: 'templates/edit-song.html',
+                     controller: 'SongEditCtrl'
+                   }
+                 }
+              })
+
+              .state('song.song-add-setlist', {
+                 url: '/:songId/setlist',
+                 views: {
+                   'song-action': {
+                     templateUrl: 'templates/add-to-setlist.html',
+                     controller: 'SongAddToSetlistCtrl'
+                   }
+                 }
+              })
+
+
+  $urlRouterProvider.otherwise('tab/browse');
+>>>>>>> jilles-stable
 });

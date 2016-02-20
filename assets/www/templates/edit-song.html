@@ -11,6 +11,7 @@
         <div class="info edit">
         	<p>Edit Information:</p>
 
+<<<<<<< HEAD
             <form ng-submit="saveEditSong()">
                 <label>Song Title: </label>
                 <input type="text" placeholder="{{song.songTitle}}" ng-model="sTitle">
@@ -32,6 +33,29 @@
 
                 <label>Spotify Link: </label>
                 <input type="text" placeholder="{{song.Spotify}}" ng-model="sSpotify">
+=======
+            <form ng-submit="saveEditSong()" name="form.editSong">
+                <label>Song Title: </label>
+                <input type="text" placeholder="{{song.songTitle}}" ng-model="model.title">
+                
+                <label>Song Artist: </label>
+                <input type="text" placeholder="{{song.songArtist}}" ng-model="model.artist">
+
+            	<label>Album: </label>
+            	<input type="text" placeholder="{{song.songAlbumName}}" ng-model="model.albumName">
+
+            	<label>Key: </label>
+            	<input type="text" placeholder="{{song.songKey}}" ng-model="model.key">
+
+                <label style="margin: 20px auto 0;">Upload New Album Art: </label>
+                <input type="text" placeholder="{{song.Album}}" ng-model="model.albumArt">
+
+                <label style="margin: 20px auto 0;">Youtube Link: </label>
+                <input type="text" placeholder="{{song.songYoutube}}" ng-model="model.youtube">
+
+                <label>Spotify Link: </label>
+                <input type="text" placeholder="{{song.Spotify}}" ng-model="model.spotify">
+>>>>>>> jilles-stable
             </form>
         </div>
       </ion-content>
