@@ -15,9 +15,8 @@ function Songs(args) {
     this.songYoutube = args.songYoutube || "";
     this.songSpotify = args.songSpotify || "";
     this.isActive = args.isActive || "";
-<<<<<<< HEAD
-=======
-    this.setlistId = args.setlistId || "";
+    this.___class = 'Songs';
+
 }
 
 function Setlists(args) {
@@ -31,29 +30,79 @@ function Setlists(args) {
     this.setlistKeyboard = args.setlistKeyboard || "";
     this.setlistVocals1 = args.setlistVocals1 || "";
     this.setlistVocals2 = args.setlistVocals2 || "";
-    this.setlistSongs = args.setlistSongs || "";
->>>>>>> jilles-stable
+    this.setlistSongs = args.setlistSongs || {};
+    this.setlistNotes = args.setlistNotes || "";
+    this.isActive = args.isActive || "";
 }
 
+
+//USERS
+function initUsers() {
+    var user = new Backendless.User();
+        user.email = "tkmdrhtt@yahoo.com";
+        user.username = "Jilles";
+        user.password = "Muireadhach";
+        user.userId = 1;
+    Backendless.UserService.register( user );
+
+    var user1 = new Backendless.User();
+        user1.email = "vocalist@yahoo.com";
+        user1.username = "Fionnbharr Ó Corráin";
+        user1.password = "Muireadhach";
+        user1.isBass = true;
+        user1.isVocals = true;
+        user1.userId = 2;
+    Backendless.UserService.register( user1 );
+
+    var user2 = new Backendless.User();
+        user2.email = "guitarist@yahoo.com";
+        user2.username = "Síle Ní Chathasaigh";
+        user2.password = "Muireadhach";
+        user2.isGuitar = true;
+        user2.userId = 3;
+    Backendless.UserService.register( user2 );
+
+    var user3 = new Backendless.User();
+        user3.email = "drummer@yahoo.com";
+        user3.username = "Catríona Ní Dhubhghaill";
+        user3.password = "Muireadhach";
+        user3.isDrummer = true;
+        user3.userId = 4;
+    Backendless.UserService.register( user3 );
+
+    var user4 = new Backendless.User();
+        user4.email = "personeOne@yahoo.com";
+        user4.username = "Mánus Ó Cadhla";
+        user4.password = "Muireadhach";
+        user4.isGuitar = true;
+        user4.isBass = true;
+        user4.userId = 5;
+    Backendless.UserService.register( user4 );
+
+    var user5 = new Backendless.User();
+        user5.email = "personTwo@yahoo.com";
+        user5.username = "Rónán Mac an t-Saoir";
+        user5.password = "Muireadhach";
+        user5.isDrummer = true;
+        user5.isVocals = true;
+        user5.userId = 6;
+    Backendless.UserService.register( user5 );
+
+    var user6 = new Backendless.User();
+        user6.email = "personThree@yahoo.com";
+        user6.username = "Aisling Ní Raghallaigh";
+        user6.password = "Muireadhach";
+        user6.isDrummer = true;
+        user6.isVocalist = true;
+        user6.userId = 7;
+    Backendless.UserService.register( user6 );
+}
+
+// FUNCTIONS
 function saveEditSong(id, info) {
     var objectId = getObject(id).objectId;
     var update = Backendless.Persistence.of(Songs).findById(objectId);
 
-<<<<<<< HEAD
-    if(info["title"] != null) {
-        update["songTitle"] = info["title"];
-    }
-    var updated = Backendless.Persistence.of(Songs).save(update);
-}
-
-function Setlist(args) {
-    args = args || {};
-    this.setId = args.setId || "";
-
-    var objectId = getObject(id).objectId;
-    var update = Backendless.Persistence.of(Songs).findById(objectId);
-    update["isActive"] = 0;
-=======
     if(info.title != null) {
         update["songTitle"] = String(info.title);
     }
@@ -76,15 +125,63 @@ function Setlist(args) {
         update["songSpotify"] = String(info.spotify);
     }
 
->>>>>>> jilles-stable
     var updated = Backendless.Persistence.of(Songs).save(update);
+    console.log("Song edited: " + updated);
+}
+
+function saveNewSong(info) {
+
+    var object = new Setlists();
+
+    var newSong = new Songs({
+        songId: parseInt(info.count),
+        songTitle: String(info.title),
+        songArtist: String(info.artist),
+        songAlbumName: String(info.albumName),
+        songAlbum: String(info.albumArt),
+        songKey: String(info.key),
+        songYoutube: String(info.youtube),
+        songSpotify: String(info.spotify),
+        isActive: 1
+    })
+    var updated = Backendless.Persistence.of(Songs).save(newSong);
+    console.log("Song saved: " + updated);
+}
+
+function saveNewSetlist(info) {
+    var newSetlist = new Setlists({
+        setlistId: parseInt(info.count),
+        setlistName: String(info.name),
+        setlistVocals1: String(info.vocals1),
+        setlistVocals2: String(info.vocals2),
+        setlistGuitar1: String(info.guitar1),
+        setlistGuitar2: String(info.guitar2),
+        setlistBass: String(info.bass),
+        setlistKeyboard: String(info.keyboard),
+        setlistDrums: String(info.drums),
+        setlistNotes: String(info.notes),
+        setlistSongs: [],
+        isActive: 1
+    })
+    var updated = Backendless.Persistence.of(Setlists).save(newSetlist);
+    console.log("Setlist saved: " + updated);
 }
 
 function deleteItem(id) {
     var objectId = getObject(id).objectId;
     var update = Backendless.Persistence.of(Songs).findById(objectId);
-    update["isActive"] = 0;
+        update["isActive"] = 0;
     var updated = Backendless.Persistence.of(Songs).save(update);
+    console.log("Song deleted: " + updated);
+}
+
+function deleteSetlist(id) {
+    var objectId = getSetlist(id).objectId;
+    console.log(objectId);
+    var update = Backendless.Persistence.of(Setlists).findById(objectId);
+        update.isActive = 0;
+    var updated = Backendless.Persistence.of(Setlists).save(update);
+    console.log("Setlist deleted " + updated);
 }
 
 function getObject(songId) {
@@ -93,10 +190,6 @@ function getObject(songId) {
         if (songs.data[i].songId === parseInt(songId)) {
           return (songs.data[i]);
         }
-<<<<<<< HEAD
-    }
-};
-=======
      }
 }
 
@@ -110,26 +203,40 @@ function getSetlist(setlistId) {
 }
 
 function addSongToSetlist(songId, setlistId) {
-     var setlistId = getSetlist(setlistId).objectId;
      var songId = getObject(songId).objectId;
+     var setlistId = getSetlist(setlistId).objectId;
 
-     var songObject = Backendless.Persistence.of(Songs).findById(songId);
      var setlistObject = Backendless.Persistence.of(Setlists).findById(setlistId);
+     var songObject = Backendless.Persistence.of(Songs).findById(songId);
 
-     var stupidArray = songObject["setlistId"];
+     var stupidArray = setlistObject.setlistSongs;
 
-     var newObject = new Setlists({
-        setlistId: 5,
-        setlistName: "BADADADAD"
-     });
+        var newObject = Songs({
+            objectId: String(songObject.objectId),
+             ___class: "Songs"
+        })
 
      var update = stupidArray.push(newObject);
-
-     console.log(stupidArray.length);
-     console.log(JSON.stringify(setlistObject));
-     console.log(JSON.stringify(stupidArray));
-
-     var updated = Backendless.Persistence.of(Setlists).save(setlistObject);
-         updated = Backendless.Persistence.of(Songs).save(songObject);
+     var updated = Backendless.Persistence.of(Songs).save(setlistObject);
+     console.log("Song added to Setlist: " + updated);
 }
->>>>>>> jilles-stable
+
+angular.isUndefinedOrNull = function(val) {
+    return angular.isUndefined(val) || val === null
+}
+
+function saveEditedSetlist(info, id) {
+    var objectId = getSetlist(id).objectId;
+    var update = Backendless.Persistence.of(Setlists).findById(objectId);
+        update["setlistName"] = info.name;
+        update["setlistNotes"] = info.notes;
+        update["setlistVocals1"] = info.vocals1;
+        update["setlistVocals2"] = info.vocals2;
+        update["setlistGuitar1"] = info.guitar1;
+        update["setlistGuitar2"] = info.guitar2;
+        update["setlistBass"] = info.bass;
+        update["setlistKeyboard"] = info.keyboard;
+        update["setlistDrums"] = info.drums;
+    var updated = Backendless.Persistence.of(Setlists).save(update);
+    console.log("Setlist updated: " + updated);
+}

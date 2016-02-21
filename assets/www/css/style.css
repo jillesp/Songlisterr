@@ -11,6 +11,7 @@
 .info span {margin: 0; font-weight: bold; text-align: center; display: block;}
 
 .edit label {text-align: left;}
+.edit label span {font-size: 10px; color: #ffb3b3; display: inline-block; margin: 0 0 0 10px;}
 .edit input {display: inline-block; border: 1px solid #888; padding: 10px; box-sizing: border-box;}
 
 .editInfo {width: 100px; height: 30px; font-size: 12px; color: #FFF; background: #33cd5f; font-weight: bold; display: block; margin: 30px auto; border: none; outline: none; border-radius: 10px;}
@@ -19,5 +20,21 @@
 .songAction h2 {padding-top: 10px;}
 
 .padding {margin-top: 25px !important;}
+.action {margin-top: 0px !important;}
 
 .buttons, .button {border: none; outline: none;}
+
+.setlist {margin: 0 auto 50px;}
+.setlist p {font-size: 12px; color: #888; margin: 20px auto 10px; text-align: left;}
+.setlist select, .setlist option {width: 100%; background: none ; color: #888; padding: 5px;}
+.setlist textarea {min-height: 150px; resize: none; width: 100%; border: 1px solid #888;}
+
+.song, .setlist {margin: 0 auto 50px ;}
+
+p.required {padding: 5px 0; color: #990000; font-size: 10px; text-align: left;}
+
+.band p.header {margin: 20px auto 20px; text-align: left;}
+.band p {text-align: left; color: #888; font-size: 15px; display: block !important;}
+.band label {display: block !important; text-align: left;}
+
+.heading {font-size: 16px; color: #888; text-align: center;}

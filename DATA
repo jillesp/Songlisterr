@@ -1,0 +1,55 @@
+DATA          
+
+CONFIRM
+WARN IF NO RESULT
+REROUTE
+
+BAND DEFAULT
+
+
+          if(!angular.isUndefinedOrNull($scope.model.title)) {
+                info.title = $scope.model.title;
+          } else {
+                info.title = "Unassigned";
+          }
+
+          if(!angular.isUndefinedOrNull($scope.model.artist)) {
+                info.artist = $scope.model.artist;
+          } else {
+                info.artist = "Unassigned";
+          }
+
+          if(!angular.isUndefinedOrNull($scope.model.albumName)) {
+                info.albumName = $scope.model.albumName;
+          } else {
+                info.albumName = "Unassigned";
+          }
+
+          if(!angular.isUndefinedOrNull($scope.model.key)) {
+                info.key = $scope.model.key;
+          } else {
+                info.key = "Unassigned";
+          }
+
+          if(!angular.isUndefinedOrNull($scope.model.albumArt)) {
+                info.albumArt = $scope.model.albumArt;
+          } else {
+                info.albumArt = "Unassigned";
+          }
+
+          if(!angular.isUndefinedOrNull($scope.model.youtube)) {
+                info.youtube = $scope.model.youtube;
+          } else {
+                info.youtube = "Unassigned";
+          }
+
+          if(!angular.isUndefinedOrNull($scope.model.spotify)) {
+                info.spotify = $scope.model.spotify;
+          } else {
+                info.spotify = "Unassigned";
+          }
+                info.count = count++;
+
+$scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+viewData.enableBack = true;
+});

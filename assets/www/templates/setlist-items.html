@@ -1,0 +1,16 @@
+<ion-view view-title="{{title}}" cache-view="false">
+  <ion-nav-bar class="bar-balanced">
+    <ion-nav-buttons side="left"><button class="button" ng-click="goHome()"><i class="ion-android-home"></i></button></ion-nav-buttons>
+    <ion-nav-buttons side="right"><button class="button" ng-click="editSetlist()"><i class="ion-edit"></i></button></ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content class="padding action">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="song in songs" type="item-text-wrap" >
+          <img ng-src="{{song.songAlbum}}">
+          <h2 ng-click="">{{song.songTitle}}</h2>
+          <p ng-click="">{{song.songArtist}}</p>
+          <i class="icon ion-android-more-horizontal" ng-click="go({{song.songId}})"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
