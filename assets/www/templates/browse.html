@@ -5,11 +5,15 @@
   </ion-nav-bar>
 
   <ion-content class="padding">
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="song in songs" type="item-text-wrap" >
-          <img ng-src="{{song.songAlbum}}">
-          <h2 ng-click="">{{song.songTitle}}</h2>
-          <p ng-click="">{{song.songArtist}}</p>
-          <i class="icon ion-android-more-horizontal" ng-click="go({{song.songId}})"></i>
+      <ion-item class="wrapper" ng-repeat="song in songs" type="item-text-wrap" >
+          <div class="eighty item-avatar" ng-click="go({{song.songId}})">
+            <img ng-src="{{song.songAlbum}}">
+            <h2 ng-click="">{{song.songTitle}}</h2>
+            <p ng-click="">{{song.songArtist}} | {{song.songAlbumName}}</p>
+          </div>
+          <div class="twenty item-icon-right">
+            <i class="icon ion-trash-b" ng-click="delete({{song.songId}})"></i>
+          </div>
       </ion-item>
     </ion-list>
   </ion-content>

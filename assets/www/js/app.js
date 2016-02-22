@@ -1,4 +1,4 @@
-angular.module('songApp', ['ionic', 'songApp.controllers', 'songApp.services'])
+angular.module('songDroid', ['ionic', 'songDroid.controllers', 'songDroid.services'])
 
 .config(function($ionicConfigProvider) {
     $ionicConfigProvider.tabs.position('bottom');
@@ -43,76 +43,98 @@ angular.module('songApp', ['ionic', 'songApp.controllers', 'songApp.services'])
     templateUrl: "templates/tabs.html"
   })
 
+      .state('tab.search', {
+          url: '/search',
+          cache: false,
+          views: {
+            'search': {
+              templateUrl: 'templates/search.html',
+              controller: 'SearchCtrl'
+            }
+          }
+      })
+
       .state('tab.songs', {
           url: '/browse',
           cache: false,
           views: {
-            'browse-songs': {
+            'songs': {
               templateUrl: 'templates/browse.html',
               controller: 'BrowseCtrl'
             }
           }
-       })
-
-      .state('tab.song-new', {
-          url: '/browse/new',
-          cache: false,
-          views: {
-            'browse-songs': {
-              templateUrl: 'templates/new-song.html',
-              controller: 'AddSongCtrl'
-            }
-          }
-       })
-
-      .state('song', {
-           url: "/song",
-           cache: false,
-           abstract: true,
-           templateUrl: "templates/song.html"
       })
 
-          .state('song.song-info', {
-              url: '/:songId/info',
+          .state('tab.song-new', {
+              url: '/browse/new',
               cache: false,
               views: {
-                'song-info': {
-                  templateUrl: 'templates/song-info.html',
-                  controller: 'SongInfoCtrl'
+                'songs': {
+                  templateUrl: 'templates/new-song.html',
+                  controller: 'AddSongCtrl'
                 }
               }
-          })
-          .state('song.song-action', {
-             url: '/:songId/action',
-             cache: false,
-             views: {
-               'song-action': {
-                 templateUrl: 'templates/song-action.html',
-                 controller: 'SongActionCtrl'
-               }
-            }
-          })
-              .state('song.song-edit', {
-                 url: '/:songId/edit',
-                 cache: false,
-                 views: {
-                   'song-action': {
-                     templateUrl: 'templates/edit-song.html',
-                     controller: 'SongEditCtrl'
-                   }
-                 }
-              })
+           })
 
-              .state('song.song-setlist', {
-                 url: '/:songId/add',
+          .state('song', {
+               url: "/song",
+               cache: false,
+               abstract: true,
+               templateUrl: "templates/song.html"
+          })
+
+              .state('song.song-info', {
+                  url: '/:songId/info',
+                  cache: false,
+                  views: {
+                    'song-info': {
+                      templateUrl: 'templates/song-info.html',
+                      controller: 'SongInfoCtrl'
+                    }
+                  }
+              })
+              .state('song.song-action', {
+                 url: '/:songId/action',
                  cache: false,
                  views: {
                    'song-action': {
-                     templateUrl: 'templates/add-to-setlist.html',
-                     controller: 'SongAddToSetlistCtrl'
+                     templateUrl: 'templates/song-action.html',
+                     controller: 'SongActionCtrl'
                    }
-                 }
+                }
               })
+                  .state('song.song-edit', {
+                     url: '/:songId/edit',
+                     cache: false,
+                     views: {
+                       'song-action': {
+                         templateUrl: 'templates/edit-song.html',
+                         controller: 'SongEditCtrl'
+                       }
+                     }
+                  })
+
+                  .state('song.song-setlist', {
+                     url: '/:songId/add',
+                     cache: false,
+                     views: {
+                       'song-action': {
+                         templateUrl: 'templates/add-to-setlist.html',
+                         controller: 'SongAddToSetlistCtrl'
+                       }
+                     }
+                  })
+
+      .state('tab.practice', {
+          url: '/practice',
+          cache: false,
+          views: {
+            'practice': {
+              templateUrl: 'templates/practice.html',
+              controller: 'PracticeCtrl'
+            }
+          }
+      })
 
       .state('tab.setlists', {
           url: '/setlists',
@@ -198,5 +220,5 @@ angular.module('songApp', ['ionic', 'songApp.controllers', 'songApp.services'])
                           }
                       })
 
-  $urlRouterProvider.otherwise('tab/setlists');
+  $urlRouterProvider.otherwise('tab/practice');
 });

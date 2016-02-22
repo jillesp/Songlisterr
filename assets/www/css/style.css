@@ -1,5 +1,6 @@
+* {box-sizing: border-box;}
 
-.tabs {height: 65px !important; padding: 0 !important;}
+.tabs {height: 65px !important; padding: 0 !important; box-shadow: 0px 0px 40px -12px rgba(0,0,0,0.75) !important;}
 .tabs .tabs-item {max-width: none !important; width: 100% !important; vertical-align: middle !important;}
 .tabs .icon {margin-top: 10px !important;}
 
@@ -19,8 +20,7 @@
 .songAction {height: 50px !important; border-left: none !important; border-right: none !important;}
 .songAction h2 {padding-top: 10px;}
 
-.padding {margin-top: 25px !important;}
-.action {margin-top: 0px !important;}
+.padding {margin: 0 !important;}
 
 .buttons, .button {border: none; outline: none;}
 
@@ -38,3 +38,22 @@ p.required {padding: 5px 0; color: #990000; font-size: 10px; text-align: left;}
 .band label {display: block !important; text-align: left;}
 
 .heading {font-size: 16px; color: #888; text-align: center;}
+
+.buttonGroup {overflow-x: scroll; height: 40px; width: 100% !important; max-width: 100% !important; box-shadow: 0px -5px 41px -8px rgba(0,0,0,0.75); border-top: 1px solid #F8F8F8; position: relative; z-index: 5;}
+.buttonGroup button {float: left; width: 25% !important; height: 100%; background: #FFF; outline: none; border: none; color: #888; font-size: 12px;}
+.underline {border-bottom: 2px #33cd5f solid;}
+
+.search {width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important;}
+.search input {padding: 20px 10px; position: relative; z-index: 10;}
+.search input[placeholder] {color: #CCC;}
+
+.padding .wrapper {overflow: hidden; height: 70px !important;}
+.padding .wrapper div {vertical-align: middle !important;}
+.padding .wrapper .eighty {width: 70% !important; float: left;}
+.padding .wrapper .twenty {width: 30% !important; float: left;}
+.padding .wrapper .twenty i {color: #33cd5f;}
+
+.pane {background-color: #F8F8F8 !important;}
+.content {box-shadow: 0px 0px 40px -12px rgba(0,0,0,0.75) !important;}
+
+.pinMsg {color: #888; text-align: center; margin: 50px auto 0;}

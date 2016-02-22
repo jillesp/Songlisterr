@@ -1,4 +1,4 @@
-angular.module('songApp.services', [])
+angular.module('songDroid.services', [])
 
 .service('Songs', function() {
 
@@ -28,6 +28,11 @@ angular.module('songApp.services', [])
                 ctr++;
             }
             return ctr;
+        },
+        search: function(type, string) {
+            var query = {condition:  type + " LIKE '%" + string + "%' and isActive = 1" };
+            var foundItems = dataStore.find(query);
+            return foundItems.data;
         }
       }
 })
@@ -59,7 +64,9 @@ angular.module('songApp.services', [])
 .service('Setlists', function() {
 
     var setlists = Backendless.Persistence.of(Setlists).find();
+
     var dataStore = Backendless.Persistence.of(Songs);
+    var dataStore2 = Backendless.Persistence.of(Setlists);
 
     return {
       all: function() {
@@ -90,6 +97,16 @@ angular.module('songApp.services', [])
         var findActive = {condition: "isActive = 1"};
         var foundActive = Backendless.Persistence.of(Setlists).find(findActive);
         return foundActive.data;
+      },
+      search: function(type, string) {
+          var query = {condition:  type + " LIKE '%" + string + "%' and isActive = 1" };
+          var foundItems = Backendless.Persistence.of(Setlists).find(query);
+          return foundItems.data;
+      },
+      pinned: function(user) {
+          var findItems = {condition: "Users[setlists].objectId='" + user + "'"};
+          var foundItems = dataStore2.find( findItems );
+          return foundItems.data;
       }
     }
 })

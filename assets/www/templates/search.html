@@ -1,27 +1,36 @@
-<ion-view View-title="Search">
+<ion-view view-title="Search" cache-view="false">
   <ion-nav-bar class="bar-balanced">
-    <ion-nav-back-button><i class="ion-chevron-left" style="padding: 0 10px;"></i></ion-nav-back-button>
+    
   </ion-nav-bar>
-  <ion-content class="has-header">
-    <label class="item-input-wrapper">
-      <i class="icon ion-ios7-search placeholder-icon"></i>
-      <input type="search" ng-model="filter">
-    </label>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="song in songs | filter:filter" type="item-text-wrap" href="#/tab/search/{{song.id}}">
-        <img ng-src="{{song.album}}">
-        <h2>{{song.title}}</h2>
-        <p>{{song.artist}}</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
+
+  <ion-content class="padding search">
+      <form name="form.search" ng-submit="">
+        <input type="text" placeholder="Search Query" ng-model="model.query" required>
+        <div class="buttonGroup">
+            <button ng-click="search('songTitle', 'songs')">Title</button>
+            <button ng-click="search('songArtist', 'songs')">Artist</button>
+            <button ng-click="search('songlbumName', 'songs')">Album</button>
+            <button ng-click="search('setlistName', 'setlists')">Setlist</button>
+        </div>
+      </form>
+
+      <ion-item class="wrapper" ng-repeat="song in songs" type="item-text-wrap" ng-hide="val">
+          <div class="eighty item-avatar" ng-click="goSong({{song.songId}})">
+            <img ng-src="{{song.songAlbum}}">
+            <h2 ng-click="">{{song.songTitle}}</h2>
+            <p ng-click="">{{song.songArtist}} | {{song.songAlbumName}}</p>
+          </div>
+          <div class="twenty item-icon-right">
+            <i class="icon ion-trash-b" ng-click="delete({{song.songId}})"></i>
+          </div>
       </ion-item>
+
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="setlist in setlists" type="item-text-wrap" ng-click="goSetlist({{setlist.setlistId}})">
+          <h2 ng-click="">{{setlist.setlistName}}</h2>
+          <p ng-click="">{{setlist.setlistNotes}}</p>
+          <i class="icon ion-android-more-horizontal"></i>
+      </ion-item>
+
     </ion-list>
   </ion-content>
 </ion-view>
-
-<script id="detail.html" type="text/ng-template">
-    <ion-view title="{{song.id}}">
-      <ion-content class="padding">
-        {{song.id}} {{song.title}}
-      </ion-content>
-    </ion-view>
-</script>

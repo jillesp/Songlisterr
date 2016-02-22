@@ -33,6 +33,7 @@ function Setlists(args) {
     this.setlistSongs = args.setlistSongs || {};
     this.setlistNotes = args.setlistNotes || "";
     this.isActive = args.isActive || "";
+    this.___class = 'Setlists';
 }
 
 
@@ -209,15 +210,13 @@ function addSongToSetlist(songId, setlistId) {
      var setlistObject = Backendless.Persistence.of(Setlists).findById(setlistId);
      var songObject = Backendless.Persistence.of(Songs).findById(songId);
 
-     var stupidArray = setlistObject.setlistSongs;
+     var stupidArray = setlistObject["setlistSongs"].push({objectId: songObject.objectId,___class: "Songs"});
 
-        var newObject = Songs({
-            objectId: String(songObject.objectId),
-             ___class: "Songs"
-        })
+//     console.log("Setlist: " + JSON.stringify(setlistObject));
+//     console.log("Array: " + JSON.stringify(stupidArray));
+//     console.log("Array: " + JSON.stringify(stupidArray));
 
-     var update = stupidArray.push(newObject);
-     var updated = Backendless.Persistence.of(Songs).save(setlistObject);
+     var updated = Backendless.Persistence.of(Setlists).save(setlistObject);
      console.log("Song added to Setlist: " + updated);
 }
 
@@ -239,4 +238,58 @@ function saveEditedSetlist(info, id) {
         update["setlistDrums"] = info.drums;
     var updated = Backendless.Persistence.of(Setlists).save(update);
     console.log("Setlist updated: " + updated);
+}
+
+function pinSetlist(setlistId) {
+     var setlistId = getSetlist(setlistId).objectId;
+     var setlistObject = Backendless.Persistence.of(Setlists).findById(setlistId);
+
+     var userObject = Backendless.Persistence.of(Backendless.User).findById("F2AC443E-7F6D-4D8E-FFD1-5BEA2E195300");
+
+     var stupidArray = userObject["setlists"].push({objectId: setlistObject.objectId,___class: "Setlists"});
+
+//     console.log("Setlist: " + JSON.stringify(setlistObject));
+//     console.log("Array: " + JSON.stringify(stupidArray));
+//     console.log("Array: " + JSON.stringify(stupidArray));
+
+     var updated = Backendless.Persistence.of(Backendless.User).save(userObject);
+     console.log("Setlist added to User: " + updated);
+}
+
+function spliceFromSetlist(setlistId, songId) {
+
+     var setlistId = getSetlist(setlistId).objectId;
+     var setlistObject = Backendless.Persistence.of(Setlists).findById(setlistId);
+
+     var stupidArray = setlistObject["setlistSongs"];
+
+    for (var i = 0; i < stupidArray.length; i++) {
+        if (stupidArray[i].songId === parseInt(songId)) {
+          console.log("Found---");
+          stupidArray.splice(i, 1);
+
+           var updated = Backendless.Persistence.of(Setlists).save(setlistObject);
+           console.log("Song spliced : " + JSON.stringify(stupidArray));
+        }
+    }
+}
+
+function spliceFromUser(userId, setlistId) {
+
+     var userObject = Backendless.Persistence.of(Backendless.User).findById(userId);
+     var stupidArray = userObject["setlists"];
+
+    for (var i = 0; i <= stupidArray.length; i++) {
+        if (stupidArray[i].setlistId === parseInt(setlistId)) {
+              console.log("Found---");
+              stupidArray.splice(i, 1);
+
+           var updated = Backendless.Persistence.of(Backendless.User).save(userObject);
+           console.log("Song spliced : " + JSON.stringify(stupidArray));
+
+           return;
+        } else {
+            console.log("Request not found.");
+        }
+    }
 }
