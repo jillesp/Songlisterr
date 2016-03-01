@@ -148,3 +148,17 @@ angular.module('songDroid.services', [])
       }
     }
 })
+
+.service('Tags', function() {
+
+    return {
+      all: function() {
+        return tags.data;
+      },
+      search: function(type, string) {
+          var query = {condition:  type + " LIKE '%" + string + "%'"};
+          var foundItems = Backendless.Persistence.of(Tags).find(query);
+          return foundItems.data;
+      }
+    }
+})

@@ -1,10 +1,14 @@
 
 <ion-view view-title="{{title}}" cache-view="false">
   <ion-nav-bar class="bar-balanced">
-        <ion-nav-buttons side="left"><button class="button" ng-click="goHome()"><i class="ion-android-home"></i></button></ion-nav-buttons>
+        
   </ion-nav-bar>
   <ion-content class="padding action">
      <ion-list >
+      <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap" ng-click="practice()">
+          <img ng-src="http://www.myiconfinder.com/uploads/iconsets/369f997cef4f440c5394ed2ae6f8eecd.png">
+          <h2>Add to Practice</h2>
+      </ion-item>
       <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap" ng-click="viewDetails()">
           <img ng-src="https://upload.wikimedia.org/wikipedia/en/c/c3/Circus-ponies-notebook-logo.png">
           <h2>View Band Assignments</h2>

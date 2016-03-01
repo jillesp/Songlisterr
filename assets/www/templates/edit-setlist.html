@@ -1,6 +1,6 @@
 <ion-view view-title="Edit Setlist" cache-view="false">
-    <ion-nav-bar class="bar-balanced">
-        
+    <ion-nav-bar class="bar-dark">
+        <ion-nav-buttons side="right"><button class="button" ng-click="back()"><i class="ion-android-arrow-back"></i></button></ion-nav-buttons>
         <ion-nav-buttons side="right"><button class="button" ng-click="verify()"><i class="ion-checkmark-round"></i></button></ion-nav-buttons>
     </ion-nav-bar>
       <ion-content class="padding">
@@ -12,6 +12,43 @@
 
                 <label>Notes: </label>
                 <textarea ng-model="model.notes" placeholder="{{setlist.setlistNotes}}"></textarea>
+
+                <p>Band Roles</p>
+
+                <label>Vocals 1:</label>
+                <select ng-model="model.vocals1">
+                    <option ng-repeat="user in vocals">{{user.username}}</option>
+                </select>
+
+                <label>Vocals 2:</label>
+                <select ng-model="model.vocals2">
+                    <option ng-repeat="user in vocals">{{user.username}}</option>
+                </select>
+
+                <label>Guitar 1:</label>
+                <select ng-model="model.guitar1">
+                    <option ng-repeat="user in guitar">{{user.username}}</option>
+                </select>
+
+                <label>Guitar 2:</label>
+                <select ng-model="model.guitar2">
+                    <option ng-repeat="user in guitar">{{user.username}}</option>
+                </select>
+
+                <label>Bass:</label>
+                <select ng-model="model.bass">
+                    <option ng-repeat="user in bass">{{user.username}}</option>
+                </select>
+
+                <label>Keyboard:</label>
+                <select ng-model="model.keyboard">
+                    <option ng-repeat="user in keyboard">{{user.username}}</option>
+                </select>
+
+                <label>Drums:</label>
+                <select ng-model="model.drums">
+                    <option ng-repeat="user in drums">{{user.username}}</option>
+                </select>
             </form>
         </div>
       </ion-content>

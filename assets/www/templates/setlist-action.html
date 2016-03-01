@@ -1,6 +1,6 @@
 
 <ion-view view-title="{{title}}" cache-view="false">
-  <ion-nav-bar class="bar-balanced">
+  <ion-nav-bar class="bar-dark">
         
   </ion-nav-bar>
   <ion-content class="padding action">
@@ -9,9 +9,17 @@
           <img ng-src="http://www.myiconfinder.com/uploads/iconsets/369f997cef4f440c5394ed2ae6f8eecd.png">
           <h2>Add to Practice</h2>
       </ion-item>
+<!--       <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap" ng-click="goDetails()">
+          <img ng-src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/View_Details.png">
+          <h2>View Setlist Info</h2>
+      </ion-item> -->
       <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap" ng-click="viewDetails()">
           <img ng-src="https://upload.wikimedia.org/wikipedia/en/c/c3/Circus-ponies-notebook-logo.png">
           <h2>View Band Assignments</h2>
+      </ion-item>
+      <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap" ng-click="editRoles()">
+          <img ng-src="https://cdn4.iconfinder.com/data/icons/devine_icons/Black/PNG/System%20and%20Internet/JAVA.png">
+          <h2>Edit Band Roles</h2>
       </ion-item>
       <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap" ng-click="deleteItem()">
           <img ng-src="https://cdn3.iconfinder.com/data/icons/musthave/256/Remove.png">

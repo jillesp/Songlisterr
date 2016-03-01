@@ -1,0 +1,39 @@
+<ion-view view-title="{{song.songTitle}}" cache-view="false">
+    <ion-nav-title>
+        <p>{{song.songTitle}}</p>
+    </ion-nav-title>
+    <ion-nav-bar class="bar-dark">
+        <ion-nav-buttons side="left"><button class="button" ng-click="goSpotify()"><i class="ion-beer"></i></button></ion-nav-buttons>
+        <ion-nav-buttons side="right"><button class="button" ng-click="verify()"><i class="ion-checkmark-round"></i></button></ion-nav-buttons>
+<!--         <a class="item" ng- onclick="window.open(this.href, '_system', 'location=yes')">
+            <img ng-src="http://www.investstockholm.com/globalassets/images/logo_spotify_300dpi_2015.png"  href="{{song.sonSpotify" height="30" width="30">
+        </a> -->
+    </ion-nav-bar>
+      <ion-content class="padding songLanding">
+        <div>
+            <p style="font-size 20px; font-weight: bold; margin: 10px auto 0;">{{song.songTitle}}</p>
+            <p style="font-size: 12px;">{{song.songArtist}} | {{song.songAlbumName}}</p>
+        </div>
+        <div class="info">
+            <div>
+            	<label>Key: </label>
+            	<span>{{song.songKey}}</span>
+            </div>
+            <div ng-click="(go())">
+                <i class="ion-android-more-horizontal"></i>
+            </div>
+        </div>
+        <div class="settings">
+            <p style="text-align: left; line-height: 50px; font-size: 12px; font-weight: bold; ">Chords: </p>
+            <div>
+                <ion-toggle style="height: 50px;" toggle-class="toggle-dark" style="transform: scale(1); background: none;" ng-model="model.chordsVisible" name="chordsVisible"></ion-toggle>
+            </div>
+        </div>
+        <p style="font-size: 12px; text-align: left; color: #888;">Lyrics: </p>
+        <div class="sheet">
+            <p style="white-space:pre-wrap; color: *444;">{{song.songSheet}}</p>
+            <p style="white-space:pre-wrap;" class="chords" ng-show="model.chordsVisible">{{song.songChords}}</p>
+        </div>
+      </ion-content>
+</ion-view>
+

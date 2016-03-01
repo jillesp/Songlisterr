@@ -1,11 +1,15 @@
 <ion-view view-title="{{setlist.setlistName}}" cache-view="false">
-    <ion-nav-bar class="bar-balanced">
+    <ion-nav-bar class="bar-dark">
         
         <ion-nav-buttons side="right"><button class="button" ng-click="editBandRoles({{setlist.setlistId}})"><i class="ion-edit"></i></button></ion-nav-buttons>
     </ion-nav-bar>
       <ion-content class="padding">
         <p class="heading">Setlist Information:</p>
-        <div class="info band">
+        <div class="notes" style="margin: 20px auto;">
+            <p>Notes: </p>
+            <p>{{setlist.setlistNotes}}</p>
+        </div>
+        <div class="info band"> 
             <p class="header">Assigned Band Roles:</p>
             <label>Vocals 1: </label>
             <p>{{setlist.setlistVocals1}}</p>

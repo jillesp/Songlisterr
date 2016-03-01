@@ -4,8 +4,11 @@ CONFIRM
 WARN IF NO RESULT
 REROUTE
 
+33cd5f
+
 BAND DEFAULT
 
+<ion-nav-buttons side="left"><button class="button" ng-click="goHome()"><i class="ion-android-home"></i></button></ion-nav-buttons>
 
           if(!angular.isUndefinedOrNull($scope.model.title)) {
                 info.title = $scope.model.title;

@@ -1,17 +1,20 @@
 <ion-view view-title="Search" cache-view="false">
-  <ion-nav-bar class="bar-balanced">
+  <ion-nav-bar class="bar-dark">
     
   </ion-nav-bar>
 
-  <ion-content class="padding search">
+  <ion-content class="padding search" overflow-scroll="true">
       <form name="form.search" ng-submit="">
         <input type="text" placeholder="Search Query" ng-model="model.query" required>
-        <div class="buttonGroup">
-            <button ng-click="search('songTitle', 'songs')">Title</button>
-            <button ng-click="search('songArtist', 'songs')">Artist</button>
-            <button ng-click="search('songlbumName', 'songs')">Album</button>
-            <button ng-click="search('setlistName', 'setlists')">Setlist</button>
-        </div>
+        <ion-scroll direction="x" class="buttonGroup" style="height: 40px; width: 400px; max-width: 450px;">
+            <div style="height: 40px; width: 400px; max-width: 450px;">
+              <button style="height: 40px; width: 80px;" ng-click="search('songTitle', 'songs')">Title</button>
+              <button style="height: 40px; width: 80px;" ng-click="search('songArtist', 'songs')">Artist</button>
+              <button style="height: 40px; width: 80px;" ng-click="search('songAlbumName', 'songs')">Album</button>
+              <button style="height: 40px; width: 80px;" ng-click="search('setlistName', 'setlists')">Setlist</button>
+              <button style="height: 40px; width: 80px;" ng-click="search('songTags', 'songs')">Tags</button>
+            </div>
+        </ion-scroll>
       </form>
 
       <ion-item class="wrapper" ng-repeat="song in songs" type="item-text-wrap" ng-hide="val">

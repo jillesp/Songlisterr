@@ -16,7 +16,9 @@ function Songs(args) {
     this.songSpotify = args.songSpotify || "";
     this.isActive = args.isActive || "";
     this.___class = 'Songs';
-
+    this.songSheet = args.songSheet || "";
+    this.songChords = args.songChords || "";
+    this.songTags = args.songTags || "";
 }
 
 function Setlists(args) {
@@ -33,9 +35,18 @@ function Setlists(args) {
     this.setlistSongs = args.setlistSongs || {};
     this.setlistNotes = args.setlistNotes || "";
     this.isActive = args.isActive || "";
+    this.setlistSpotify = args.setlistSpotify || "";
     this.___class = 'Setlists';
 }
 
+function Tags(args) {
+    args = args || {};
+    this.tagId = args.tagId || "";
+    this.tagName = args.tagName || "";
+    this.setlists = args.setlists || {};
+    this.songs = args.songs || {};
+    this.___class = 'Tags';
+}
 
 //USERS
 function initUsers() {
@@ -67,7 +78,7 @@ function initUsers() {
         user3.email = "drummer@yahoo.com";
         user3.username = "Catríona Ní Dhubhghaill";
         user3.password = "Muireadhach";
-        user3.isDrummer = true;
+        user3.isDrums = true;
         user3.userId = 4;
     Backendless.UserService.register( user3 );
 
@@ -84,7 +95,7 @@ function initUsers() {
         user5.email = "personTwo@yahoo.com";
         user5.username = "Rónán Mac an t-Saoir";
         user5.password = "Muireadhach";
-        user5.isDrummer = true;
+        user5.isDrums = true;
         user5.isVocals = true;
         user5.userId = 6;
     Backendless.UserService.register( user5 );
@@ -93,7 +104,7 @@ function initUsers() {
         user6.email = "personThree@yahoo.com";
         user6.username = "Aisling Ní Raghallaigh";
         user6.password = "Muireadhach";
-        user6.isDrummer = true;
+        user6.isDrums = true;
         user6.isVocalist = true;
         user6.userId = 7;
     Backendless.UserService.register( user6 );
@@ -228,6 +239,7 @@ function saveEditedSetlist(info, id) {
     var objectId = getSetlist(id).objectId;
     var update = Backendless.Persistence.of(Setlists).findById(objectId);
         update["setlistName"] = info.name;
+        update["setlistTags"] = info.notes;
         update["setlistNotes"] = info.notes;
         update["setlistVocals1"] = info.vocals1;
         update["setlistVocals2"] = info.vocals2;
@@ -246,6 +258,7 @@ function pinSetlist(setlistId) {
 
      var userObject = Backendless.Persistence.of(Backendless.User).findById("F2AC443E-7F6D-4D8E-FFD1-5BEA2E195300");
 
+     var unpin = userObject["setlists"].splice(0,1);
      var stupidArray = userObject["setlists"].push({objectId: setlistObject.objectId,___class: "Setlists"});
 
 //     console.log("Setlist: " + JSON.stringify(setlistObject));
@@ -292,4 +305,58 @@ function spliceFromUser(userId, setlistId) {
             console.log("Request not found.");
         }
     }
+}
+
+function retrieveSearched(tagId) {
+     var setlistObject = Backendless.Persistence.of(Setlists).findById(setlistId);
+     var songObject = Backendless.Persistence.of(Songs).findById(songId);
+
+     var stupidArray = setlistObject["setlistSongs"].push({objectId: songObject.objectId,___class: "Songs"});
+
+//     console.log("Setlist: " + JSON.stringify(setlistObject));
+//     console.log("Array: " + JSON.stringify(stupidArray));
+//     console.log("Array: " + JSON.stringify(stupidArray));
+
+     var updated = Backendless.Persistence.of(Setlists).save(setlistObject);
+     console.log("Song added to Setlist: " + updated);
+}
+
+angular.isUndefinedOrNull = function(val) {
+    return angular.isUndefined(val) || val === null
+}
+
+function processSheetMusic(info, id) {
+    var songId = getObject(id).objectId;
+
+    var sheet = info;
+    var spliced = sheet.replace(/\[[^ ]\]/g, '');
+    var lyrics = spliced.replace(/(?:\r\n|\r|\n)/g, '<br />');
+    var result = sheet.replace(/[^[\n\r\ ](?![^[\]]*])/g, "_").replace(/\[/g, "").replace('/ /g', "");
+    var chords = result.replace(/(?:\r\n|\r|\n)/g, '<br />').replace(/_/g, '&nbsp;');
+
+    $('.container').append('<div class="section"></div>');
+    $('.section').append('<p class="lyrics">' + lyrics + '</p>');
+    $('.section').append('<p class="chords">' + chords + '</p>');
+
+    spliced = spliced.replace(/\[.[a-z#]+\]/g, '');
+    chords = chords.replace(/&nbsp;/g, ' ').replace(/<br \/>/g, '\n');
+    var update = Backendless.Persistence.of(Songs).findById(songId);
+        update["songSheet"] = spliced;
+        update["songChords"] = chords;
+    var updated = Backendless.Persistence.of(Songs).save(update);
+    console.log("Sheet processed: \n" + chords);
+}
+
+function previewSheetMusic(info) {
+    var sheet = info;
+    var spliced = sheet.replace(/\[[^ ]+\]/g, '');
+    var lyrics = spliced.replace(/(?:\r\n|\r|\n)/g, '<br />');
+    var result = sheet.replace(/[^[\n\r\ ](?![^[\]]*])/g, "_").replace(/\[/g, "").replace('/ /g', "");
+    var chords = result.replace(/(?:\r\n|\r|\n)/g, '<br />').replace(/_/g, '&nbsp;');
+
+    $('.container').append('<div class="section"></div>');
+    $('.section').append('<p class="lyrics">' + lyrics + '</p>');
+    $('.section').append('<p class="chords">' + chords + '</p>');
+
+    console.log("Sheet displayed: \n" + chords);
 }
