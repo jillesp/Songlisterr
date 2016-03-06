@@ -401,11 +401,11 @@ var failureCallback = function(  )
  
 // prepare message bodies (plain and html) and attachment
 var bodyParts = new Bodyparts();
-bodyParts.textmessage = "Check out this awesome code generation result";
-bodyParts.htmlmessage = "Check out this <b>awesome</b> code generation result";
+bodyParts.textmessage = "hi windy";
+bodyParts.htmlmessage = "You get a free email everytime we use the Jump function \o/";
 var attachments = [];
  
 // asynchronous call
 var responder = new Backendless.Async( successCallback, failureCallback );
-Backendless.Messaging.sendEmail( "Backendless code gen", bodyParts, [ "tkmdrhtt@yahoo.com" ], attachments, responder );
+Backendless.Messaging.sendEmail( "Backendless code gen", bodyParts, [ "maoiwendell@yahoo.com" ], attachments, responder );
 }
