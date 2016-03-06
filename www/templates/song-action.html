@@ -1,31 +1,29 @@
-
 <ion-view view-title="{{song.songTitle}}" cache-view="false">
   <ion-nav-bar class="bar-dark">
-      
-      <ion-nav-buttons side="right"><button class="button" ng-click="editSong({{song.songId}})"><i class="ion-edit"></i></button></ion-nav-buttons>
+      <ion-nav-buttons side="left"><button class="button" ng-click="back()"><i class="ion-ios-arrow-back"></i></button></ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content class="padding action">
-     <ion-list >
-      <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap" href="{{song.songYoutube}}">
-          <img ng-src="https://cdn3.iconfinder.com/data/icons/social-icons-5/607/YouTube_Play.png">
-          <h2>Visit on Youtube</h2>
-      </ion-item>
-      <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap" href="{{song.songSpotify}}">
-          <img ng-src="http://www.investstockholm.com/globalassets/images/logo_spotify_300dpi_2015.png">
-          <h2>Visit on Spotify</h2>
-      </ion-item>
-      <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap" >
-          <img ng-src="http://wolfisbikeshop.de/jom/images/Website/OPEN-mountain-bike-brand-logo.gif">
-          <h2>Open in Others</h2>
-      </ion-item>
-      <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap" ng-click="addToSetlist({{song.songId}})">
-          <img ng-src="https://lh6.ggpht.com/Sybr7we4i2suxH_JtbdEvuMEFHB1xSGVbg65wUox0fHX29a5wYeFLkdo6xJaEsLv8w=w300">
-          <h2>Add to Setlist</h2>
-      </ion-item>
-      <ion-item class="item-remove-animate item-avatar item-icon-right songAction" type="item-text-wrap"  ng-click="delete({{song.songId}})">
-          <img ng-src="https://cdn3.iconfinder.com/data/icons/musthave/256/Remove.png">
-          <h2>Delete</h2>
-      </ion-item>
+  <ion-content class="padding action" style="margin-top: 2px;">
+     <ion-list>
+        <ion-item class="songAction" type="item-text-wrap" ng-click="goYoutube()">
+            <i class="ion-social-youtube" style="padding-left: 8px;"></i>
+            <h2>Visit on Youtube</h2>
+        </ion-item>
+        <ion-item class="songAction" type="item-text-wrap" ng-click="goSpotify()">
+            <img ng-src="http://www.investstockholm.com/globalassets/images/logo_spotify_300dpi_2015.png" style="width:40px; float:left;">
+            <h2>Visit on Spotify</h2>
+        </ion-item>
+        <ion-item class="songAction" type="item-text-wrap" >
+            <i class="ion-link" style="padding-left: 10px;"></i>
+            <h2>Open in Others</h2>
+        </ion-item>
+        <ion-item class="songAction" type="item-text-wrap" ng-click="addToSetlist({{song.songId}})">
+            <i class="ion-android-add-circle"></i>
+            <h2>Add to Setlist</h2>
+        </ion-item>
+        <ion-item class="songAction" type="item-text-wrap"  ng-click="delete({{song.songId}})">
+            <i class="ion-ios-trash" style="padding-left: 13px;"></i>
+            <h2>Delete</h2>
+        </ion-item>
     </ion-list>
   </ion-content>
 </ion-view>

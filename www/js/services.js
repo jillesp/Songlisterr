@@ -1,17 +1,24 @@
+var online = window.navigator.onLine;
+
 angular.module('songDroid.services', [])
 
 .service('Songs', function() {
 
       var songs = Backendless.Persistence.of(Songs).find();
       var dataStore = Backendless.Persistence.of(Songs);
+      //window.localStorage.setItem("songs", JSON.stringify(songs));
+
+      // var localSongs =  window.localStorage.getItem("songs");
+      //     localSongs = JSON.parse(localSongs);
+
+      // console.log(localSongs);
 
       return {
         all: function() {
           return songs.data;
         },
         active: function() {
-          var findActive = {condition: "isActive = 1"};
-          var foundActive = Backendless.Persistence.of(Songs).find(findActive);
+          var foundActive = dataStore.find({condition: "isActive = 1"});
           return foundActive.data;
         },
         get: function(songId) {
@@ -107,6 +114,7 @@ angular.module('songDroid.services', [])
           var findItems = {condition: "Users[setlists].objectId='" + user + "'"};
           var foundItems = dataStore2.find( findItems );
           return foundItems.data;
+          console.log(foundItems.data);
       }
     }
 })

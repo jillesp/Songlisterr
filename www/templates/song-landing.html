@@ -1,39 +1,69 @@
-<ion-view view-title="{{song.songTitle}}" cache-view="false">
+<ion-view view-title="{{song.songTitle}}" cache-view="false" class="songLanding">
     <ion-nav-title>
         <p>{{song.songTitle}}</p>
     </ion-nav-title>
     <ion-nav-bar class="bar-dark">
-        <ion-nav-buttons side="left"><button class="button" ng-click="goSpotify()"><i class="ion-beer"></i></button></ion-nav-buttons>
-        <ion-nav-buttons side="right"><button class="button" ng-click="verify()"><i class="ion-checkmark-round"></i></button></ion-nav-buttons>
-<!--         <a class="item" ng- onclick="window.open(this.href, '_system', 'location=yes')">
-            <img ng-src="http://www.investstockholm.com/globalassets/images/logo_spotify_300dpi_2015.png"  href="{{song.sonSpotify" height="30" width="30">
-        </a> -->
+        <ion-nav-buttons side="right"><button class="button" ng-click="goSpotify()"><img src="img/spotify.png"></button></ion-nav-buttons>
+        <ion-nav-buttons side="left"><button class="button" ng-click="back()"><i class="ion-ios-arrow-back"></i></button></ion-nav-buttons>
     </ion-nav-bar>
-      <ion-content class="padding songLanding">
+      <ion-content class="padding songLanding" delegate-handle="content">
         <div>
-            <p style="font-size 20px; font-weight: bold; margin: 10px auto 0;">{{song.songTitle}}</p>
+            <p style="font-size 20px; font-weight: bold; margin: 10px auto 0; color: #ff8533;">{{song.songTitle}}</p>
             <p style="font-size: 12px;">{{song.songArtist}} | {{song.songAlbumName}}</p>
         </div>
         <div class="info">
             <div>
-            	<label>Key: </label>
-            	<span>{{song.songKey}}</span>
+            	<label>BPM: </label>
+            	<span>{{song.songBPM}}</span>
             </div>
-            <div ng-click="(go())">
-                <i class="ion-android-more-horizontal"></i>
+            <div>
+                <label>Key: </label>
+                <span>{{song.songKey}}</span>
+            </div>            
+            <div ng-click="(go({{song.songId}}))">
+                <i class="ion-android-more-vertical"></i>
             </div>
         </div>
-        <div class="settings">
-            <p style="text-align: left; line-height: 50px; font-size: 12px; font-weight: bold; ">Chords: </p>
+<!--         <div class="settings">
+            <p style="text-align: left; line-height: 40px; font-size: 12px; color:#777;">Toggle Chord Visibility </p>
             <div>
                 <ion-toggle style="height: 50px;" toggle-class="toggle-dark" style="transform: scale(1); background: none;" ng-model="model.chordsVisible" name="chordsVisible"></ion-toggle>
             </div>
-        </div>
+        </div> -->
         <p style="font-size: 12px; text-align: left; color: #888;">Lyrics: </p>
-        <div class="sheet">
-            <p style="white-space:pre-wrap; color: *444;">{{song.songSheet}}</p>
+        <div class="sheet" style="padding-bottom: 300px;">
+            <p style="white-space:pre-wrap;" class="lyrics" ng-bind-html="to_trusted(song.songLyrics)"></p>
             <p style="white-space:pre-wrap;" class="chords" ng-show="model.chordsVisible">{{song.songChords}}</p>
         </div>
       </ion-content>
+      <div class="controls">
+            <div class="nav">
+                <button><i class="ion-ios-arrow-left"></i></button>
+            </div>
+            <div class="transpose">
+                <label>Transpose:</label>
+                <button ng-click="transposeUp({{song.songId}})"><i class="ion-arrow-up-b"></i></button>
+                <button><i class="ion-arrow-down-b" style="top: 2px; left: 0px;"></i></button>
+            </div>
+            <div class="chords">
+                <label>Chords:</label>
+                <ion-toggle style="height: 38px;" toggle-class="toggle-dark" style="transform: scale(1); background: none;" ng-model="model.chordsVisible" name="chordsVisible"></ion-toggle>
+            </div>        
+            <div class="jump">
+                <label>Jump:</label>
+                <button ng-click="jump()"><i class="ion-arrow-graph-up-right" style="left: -2px;"></i></button>
+            </div>    
+            <div class="nav">
+                <button><i class="ion-ios-arrow-right"></i></button>
+            </div>            
+      </div>
+        <div class="controls two" ng-show="doJump">
+        <form ng-submit="jumpTo()" name="form.jumper">
+            <select ng-model="model.section">
+                <option ng-repeat="section in sections">{{section}}</option>
+            </select>
+            <button type="submit" ng-click="jumpTo()"><i class="ion-arrow-graph-up-right"></i></button>
+        </form>
+        </div>
 </ion-view>
 

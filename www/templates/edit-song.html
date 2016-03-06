@@ -1,7 +1,7 @@
 <ion-view view-title="{{song.songTitle}}" cache-view="false">
     <ion-nav-bar class="bar-dark">
-        
-        <ion-nav-buttons side="right"><button class="button" ng-click="saveEditSong()"><i class="ion-checkmark-round"></i></button></ion-nav-buttons>
+        <ion-nav-buttons side="left"><button class="button" ng-click="back()"><i class="ion-ios-arrow-back"></i></button></ion-nav-buttons>
+        <ion-nav-buttons side="right"><button class="button" ng-click="saveEditSong()"><i class="ion-android-checkmark-circle"></i></button></ion-nav-buttons>
     </ion-nav-bar>
       <ion-content class="padding">
         <img ng-src="{{song.songAlbum}}" style="width: 125px; height: 125px; display: block; margin: 20px auto;">
@@ -32,6 +32,9 @@
 
                 <label>Spotify Link: </label>
                 <input type="text" placeholder="{{song.songSpotify}}" ng-model="model.spotify">
+
+                <label>Other Link: </label>
+                <input type="text" placeholder="{{song.songOthers}}" ng-model="model.others">
             </form>
         </div>
       </ion-content>

@@ -1,3 +1,5 @@
+console.log(navigator.onLine);
+
 var APPLICATION_ID = '48F7E0A1-E799-EE7C-FF56-D3687FF1BF00',
     SECRET_KEY = 'B68610CE-62FD-34D1-FFD2-EF348786DD00',
     VERSION = 'v1';
@@ -20,6 +22,10 @@ function Songs(args) {
     this.songLyrics = args.songLyrics || "";
     this.songChords = args.songChords || "";
     this.songTags = args.songTags || "";
+    this.songOthers = args.songOthers || "";
+    this.songBPM = args.songBPM || "";
+    this.songSections = args.songSections || "";
+
 }
 
 function Setlists(args) {
@@ -38,6 +44,7 @@ function Setlists(args) {
     this.isActive = args.isActive || "";
     this.setlistSpotify = args.setlistSpotify || "";
     this.___class = 'Setlists';
+
 }
 
 function Tags(args) {
@@ -240,15 +247,9 @@ function saveEditedSetlist(info, id) {
     var objectId = getSetlist(id).objectId;
     var update = Backendless.Persistence.of(Setlists).findById(objectId);
         update["setlistName"] = info.name;
-        update["setlistTags"] = info.notes;
+        update["setlistSpotify"] = info.spotify;
         update["setlistNotes"] = info.notes;
-        update["setlistVocals1"] = info.vocals1;
-        update["setlistVocals2"] = info.vocals2;
-        update["setlistGuitar1"] = info.guitar1;
-        update["setlistGuitar2"] = info.guitar2;
-        update["setlistBass"] = info.bass;
-        update["setlistKeyboard"] = info.keyboard;
-        update["setlistDrums"] = info.drums;
+
     var updated = Backendless.Persistence.of(Setlists).save(update);
     console.log("Setlist updated: " + updated);
 }
@@ -329,15 +330,82 @@ angular.isUndefinedOrNull = function(val) {
 function processSheetMusic(info, id) {
     var songId = getObject(id).objectId;
 
+    var collect = info.match(/[\"].+[\"]/gi);
+        collect = JSON.stringify(collect).replace(/[\"]/gi, '').replace(/\\/gi, '\"');
+
     var sheet = info;
     var lyrics = sheet.replace(/\[[^ ]\]/g, '').replace(/\[.[a-z#\d]+\]/g, '');
-    var chords = sheet.replace(/[^[\n\r\ ](?![^[\]]*])/g, " ").replace(/\[/g, " ");
-
+    var chords = sheet.replace(/<.[^.>]+(?=\>)/g, '').replace(/[^[\n\r\ ](?![^[\]]*])/g, " ").replace(/\[/g, " ").replace(/ *[^\]](?=\[.+\])/g, 's')
+        chords = chords.replace(/ {1,3}[^\]](?=\[.)/g, '');
     var update = Backendless.Persistence.of(Songs).findById(songId);
         update["songLyrics"] = lyrics;
         update["songSheet"] = sheet;
         update["songChords"] = chords;
+        update["songSections"] = collect;
     var updated = Backendless.Persistence.of(Songs).save(update);
     console.log("Sheet processed: \n" + chords);
 }
 
+function saveEditedRoles(info, id) {
+    var objectId = getSetlist(id).objectId;
+    var update = Backendless.Persistence.of(Setlists).findById(objectId);
+        update["setlistNotes"] = info.notes;
+        update["setlistVocals1"] = info.vocals1;
+        update["setlistVocals2"] = info.vocals2;
+        update["setlistGuitar1"] = info.guitar1;
+        update["setlistGuitar2"] = info.guitar2;
+        update["setlistBass"] = info.bass;
+        update["setlistKeyboard"] = info.keyboard;
+        update["setlistDrums"] = info.drums;
+
+    var updated = Backendless.Persistence.of(Setlists).save(update);
+    console.log("Setlist updated: " + updated);
+}
+
+function transposeUp(id) {
+var songChords = getObject(id).songChords;
+    songChords = songChords.replace(/A(?=[^#&*])/g, 'A*').replace(/A#/g, 'B&');
+    songChords = songChords.replace(/B(?=[^#&*])/g, 'C&');
+    songChords = songChords.replace(/C(?=[^#&*])/g, 'C*').replace(/C#/g, 'D&');
+    songChords = songChords.replace(/D(?=[^#&*])/g, 'D*').replace(/D#/g, 'E&');
+    songChords = songChords.replace(/E(?=[^#&*])/g, 'F&');
+    songChords = songChords.replace(/F(?=[^#&*])/g, 'F*').replace(/F#/g, 'G&');
+    songChords = songChords.replace(/G(?=[^#&*])/g, 'G*').replace(/G#/g, 'A&');
+    songChords = songChords.replace(/[*]/g, '#').replace(/\&/g, '');
+console.log(songChords);
+}
+
+function transposeDown(id) {
+var songChords = getObject(id).songChords;
+    songChords = songChords.replace(/A(?=[^#&*])/g, 'G*').replace(/A#/g, 'A&');
+    songChords = songChords.replace(/B(?=[^#&*])/g, 'A&');
+    songChords = songChords.replace(/C(?=[^#&*])/g, 'B&').replace(/C#/g, 'C&');
+    songChords = songChords.replace(/D(?=[^#&*])/g, 'C*').replace(/D#/g, 'D&');
+    songChords = songChords.replace(/E(?=[^#&*])/g, 'D*');
+    songChords = songChords.replace(/F(?=[^#&*])/g, 'E&').replace(/F#/g, 'F&');
+    songChords = songChords.replace(/G(?=[^#&*])/g, 'G*').replace(/G#/g, 'G&');
+    songChords = songChords.replace(/[*]/g, '#').replace(/\&/g, '');
+console.log(songChords);
+}
+
+function sendMail() {
+    var successCallback = function(  ) 
+{
+  console.log( "[ASYNC] message has been sent" );
+};
+ 
+var failureCallback = function(  ) 
+{
+  console.log( "error - ");
+};
+ 
+// prepare message bodies (plain and html) and attachment
+var bodyParts = new Bodyparts();
+bodyParts.textmessage = "Check out this awesome code generation result";
+bodyParts.htmlmessage = "Check out this <b>awesome</b> code generation result";
+var attachments = [];
+ 
+// asynchronous call
+var responder = new Backendless.Async( successCallback, failureCallback );
+Backendless.Messaging.sendEmail( "Backendless code gen", bodyParts, [ "tkmdrhtt@yahoo.com" ], attachments, responder );
+}

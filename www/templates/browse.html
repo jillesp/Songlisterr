@@ -1,10 +1,9 @@
 <ion-view view-title="Songs" cache-view="false">
   <ion-nav-bar class="bar-dark">
-    
-    <ion-nav-buttons side="right"><button class="button" ng-click="addNewSong()"><i class="ion-plus-round"></i></button></ion-nav-buttons>  
+    <ion-nav-buttons side="right"><button class="button" ng-click="addNewSong()"><i class="ion-plus-round"></i></button></ion-nav-buttons> 
   </ion-nav-bar>
 
-  <ion-content class="padding">
+  <ion-content class="padding search">
     <ion-list>
       <ion-item class="wrapper" ng-repeat="song in songs" type="item-text-wrap" >
           <ion-side-menus>

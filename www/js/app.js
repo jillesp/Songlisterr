@@ -1,9 +1,10 @@
-angular.module('songDroid', ['ionic', 'songDroid.controllers', 'songDroid.services'])
+angular.module('songDroid', ['ionic', 'ngSanitize', 'songDroid.controllers', 'songDroid.services'])
 
 .config(function($ionicConfigProvider) {
     $ionicConfigProvider.tabs.position('bottom');
     $ionicConfigProvider.navBar.alignTitle('center');
     $ionicConfigProvider.views.maxCache(0);
+
 })
 
 .run(function($ionicPlatform) {
@@ -199,23 +200,23 @@ angular.module('songDroid', ['ionic', 'songDroid.controllers', 'songDroid.servic
                 }
             })
 
+            .state('tab.setlists-items', {
+                url: '/setlists/:setlistId/items',
+                cache: false,
+                views: {
+                    'setlists': {
+                        templateUrl: 'templates/setlist-items.html',
+                        controller: 'SetlistItemsCtrl'
+                    }
+                }
+            })            
+
             .state('setlist', {
                 url: "/setlist",
                 cache: false,
                 abstract: true,
                 templateUrl: "templates/setlist.html"
             })
-
-                .state('setlist.setlists-items', {
-                    url: '/setlists/:setlistId',
-                    cache: false,
-                    views: {
-                        'setlist-info': {
-                            templateUrl: 'templates/setlist-items.html',
-                            controller: 'SetlistItemsCtrl'
-                        }
-                    }
-                })
 
                 .state('setlist.setlists-actions', {
                     url: '/setlists/:setlistId/action',
@@ -232,31 +233,62 @@ angular.module('songDroid', ['ionic', 'songDroid.controllers', 'songDroid.servic
                     url: '/setlists/:setlistId/info',
                     cache: false,
                     views: {
-                        'setlist-action': {
+                        'setlist-details': {
                             templateUrl: 'templates/setlist-details.html',
                             controller: 'SetlistDetailsCtrl'
                         }
                     }
                 })
 
-                .state('setlist.setlists-details-edit', {
-                    url: '/setlists/:setlistId/edit',
+                .state('setlist.setlists-roles', {
+                    url: '/setlists/:setlistId/roles',
                     cache: false,
                     views: {
                         'setlist-action': {
-                            templateUrl: 'templates/edit-setlist.html',
-                            controller: 'EditSetlistDetailsCtrl'
+                            templateUrl: 'templates/setlist-roles.html',
+                            controller: 'SetlistRolesCtrl'
                         }
                     }
                 })
 
-                .state('setlist.setlists-roles-edit', {
-                    url: '/setlists/roles',
+            
+
+            .state('setlist-edit', {
+                url: "/setlist-edit",
+                cache: false,
+                abstract: true,
+                templateUrl: "templates/setlist-edit.html"
+            })
+
+                .state('setlist-edit.setlists-actions-edit', {
+                    url: '/setlists/:setlistId/actions/edit',
                     cache: false,
                     views: {
-                        'setlist-action': {
-                            templateUrl: 'templates/set-roles.html',
+                        'edit-action': {
+                            templateUrl: 'templates/setlist-edit-action.html',
+                            controller: 'SetlistEditActionCtrl'
+                        }
+                    }
+                })             
+
+                .state('setlist-edit.setlists-roles-edit', {
+                    url: '/setlists/:setlistId/roles/edit',
+                    cache: false,
+                    views: {
+                        'edit-action': {
+                            templateUrl: 'templates/edit-roles.html',
                             controller: 'EditRolesCtrl'
+                        }
+                    }
+                })           
+
+                .state('setlist-edit.setlists-details-edit', {
+                    url: '/setlists/:setlistId/edit-setlist',
+                    cache: false,
+                    views: {
+                        'edit-info': {
+                            templateUrl: 'templates/edit-setlist.html',
+                            controller: 'EditSetlistDetailsCtrl'
                         }
                     }
                 })

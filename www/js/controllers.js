@@ -1,6 +1,7 @@
 angular.module('songDroid.controllers', [])
 
 .controller('BrowseCtrl', function($scope, Songs, $location, $stateParams, sharedProperties, $ionicSideMenuDelegate) {
+
     $scope.songs = Songs.active();
     $scope.go = function(id) {
         sharedProperties.setProperty(id);
@@ -31,9 +32,15 @@ angular.module('songDroid.controllers', [])
    $scope.addSetlist = function() {
         $location.path('/tab/setlists/new');
    };
+
     $scope.go = function(id) {
         sharedProperties2.setProperty(id);
-        $location.path('/setlist/setlists/' + id);
+        $location.path('/tab/setlists/' + id +'/items');
+    }
+
+    $scope.goInfo = function(id) {
+        sharedProperties2.setProperty(id);
+        $location.path('/setlist/setlists/' + id +'/info');
     }
 
     $scope.practice = function(){
@@ -45,6 +52,7 @@ angular.module('songDroid.controllers', [])
         deleteSetlist(id);
         $location.path('tab/setlists');
     }
+
 })
 
 .controller('AddSetlistCtrl', function($scope, Setlists, $location, $stateParams, $state, Users) {
@@ -198,22 +206,68 @@ angular.module('songDroid.controllers', [])
   $scope.editSong = function(id) {
       $location.path('song-edit/' + id + '/edit-info');
   };
+  $scope.back = function() {
+    $location.path('tab/'+sharedProperties.getProperty()+'/landing');
+  }
 })
 
-.controller('SongLandingCtrl', function($scope, $stateParams, Songs, $location, $state, sharedProperties, $window) {
+.controller('SongLandingCtrl', function($scope, $stateParams, Songs, $location, $state, sharedProperties, $window, $sanitize, $sce, $ionicScrollDelegate) {
   $scope.song = Songs.get(sharedProperties.getProperty());
   $scope.go = function(id) {
       $location.path('song/' + id + '/info');
   };
-
+  $scope.back = function() {
+    $location.path('tab/browse');
+  }
   $scope.goSpotify = function() {
     var url = Songs.get(sharedProperties.getProperty()).songSpotify;
     console.log(url);
     $window.open(url);
   };
+  $scope.transposeUp = function(id) {
+    transposeUp(id);
+    $state.reload();
+  }
+
+  var sections = Songs.get(sharedProperties.getProperty()).songSections;
+      sections = JSON.parse(sections);
+
+  $scope.sections = sections;
+  $scope.doJump = false;
+  $scope.jump = function() {
+    if($scope.doJump == false){
+     $scope.doJump = true;
+    } else {
+     $scope.doJump = false;
+    }
+    sendMail();
+  };
+
+  $scope.to_trusted = function(html_code) {
+    return $sce.trustAsHtml(html_code);
+  };
+
+
+  $scope.model = { section: '' };
+  $scope.form = {};
+
+ $scope.jumpTo = function() {
+    var loc = $scope.model.section;
+    $location.hash(loc);
+    var handle = $ionicScrollDelegate.$getByHandle('content');
+    handle.anchorScroll([true]);
+
+     $scope.doJump = false;
+ };
+
+ $scope.songs = Songs.active();
+ // angular.
+ // $scope.nextSong= function() {
+
+ // };
 })
 
-.controller('SongActionCtrl', function($scope, $stateParams, Songs, sharedProperties, $location) {
+.controller('SongActionCtrl', function($scope, $stateParams, Songs, sharedProperties, $location, $window) {
   $scope.song = Songs.get(sharedProperties.getProperty());
   $scope.delete = function (id) {
     deleteItem(id);
@@ -222,6 +276,26 @@ angular.module('songDroid.controllers', [])
   $scope.addToSetlist = function(id) {
     $location.path('song/' + id + '/add');
   };
+  $scope.goYoutube = function() {
+    var url = Songs.get(sharedProperties.getProperty()).songYoutube;
+    console.log(url);
+    $window.open(url);
+  };
+  $scope.goSpotify = function() {
+    var url = Songs.get(sharedProperties.getProperty()).songSpotify;
+    console.log(url);
+    $window.open(url);
+  };
+
+  $scope.goOthers = function() {
+    var url = Songs.get(sharedProperties.getProperty()).songOthers;
+    console.log(url);
+    $window.open(url);
+  };  
+  $scope.back = function() {
+    $location.path('/tab/'+sharedProperties.getProperty()+'/landing');
+  }
+
 })
 
 .controller('SongEditActionCtrl', function($scope, $stateParams, Songs, sharedProperties, $location) {
@@ -244,9 +318,19 @@ angular.module('songDroid.controllers', [])
 
 .controller('SongEditCtrl', function($scope, sharedProperties, Songs, $location, $state) {
   $scope.song = Songs.get(sharedProperties.getProperty());
+  var song = Songs.get(sharedProperties.getProperty());
 
        $scope.model = { title: '' };
        $scope.form = {};
+
+       $scope.model.title = song.songTitle;
+       $scope.model.artist = song.songArtist;
+       $scope.model.albumName = song.songAlbumName;
+       $scope.model.key = song.songKey;
+       $scope.model.albumArt = song.songAlbum;
+       $scope.model.youtube = song.songYoutube;
+       $scope.model.spotify = song.songSpotify;
+       $scope.model.others = song.songOthers;
 
   $scope.saveEditSong = function() {
       var  info = new Object();
@@ -257,10 +341,14 @@ angular.module('songDroid.controllers', [])
            info.albumArt = $scope.model.albumArt;
            info.youtube = $scope.model.youtube;
            info.spotify = $scope.model.spotify;
+           info.others = $scope.model.others;
 
       saveEditSong(sharedProperties.getProperty(), info);
       $location.path('song/' + sharedProperties.getProperty() + '/info');
   };
+  $scope.back = function() {
+    $location.path('song/'+sharedProperties.getProperty()+'/info');
+  }
 })
 
 .controller('SongAddToSetlistCtrl', function($scope, sharedProperties, Setlists, $location) {
@@ -273,11 +361,11 @@ angular.module('songDroid.controllers', [])
 
 .controller('SetlistActionCtrl', function($scope, $stateParams, Setlists, sharedProperties2, $location) {
   $scope.title = getSetlist(sharedProperties2.getProperty()).setlistName;
-  $scope.song = Setlists.get(sharedProperties2.getProperty());
+  $scope.setlists = Setlists.get(sharedProperties2.getProperty());
 
   var id = getSetlist(sharedProperties2.getProperty()).setlistId;
   $scope.viewDetails = function() {
-     $location.path('setlist/setlists/' + sharedProperties2.getProperty() + '/info');
+     $location.path('setlist/setlists/' + sharedProperties2.getProperty() + '/roles');
   }
   $scope.deleteItem = function() {
     deleteSetlist(id);
@@ -289,40 +377,40 @@ angular.module('songDroid.controllers', [])
     $location.path('tab/practice');
   }
 
-    $scope.viewDetails = function() {
-        $location.path('setlist/setlists/' + id + '/info');
-    }
+  $scope.editRoles = function() {
+   $location.path('setlist/setlists/' + id + '/edit')
+  }
 
-    $scope.editRoles = function() {
-     $location.path('setlist/setlists/' + id + '/edit')
-    }
+  $scope.back = function() {
+    $location.path('tab/setlists');
+  };  
 })
 
 .controller('SetlistDetailsCtrl', function($scope, $stateParams, Setlists, $location, $state, sharedProperties2) {
-  console.log(sharedProperties2.getProperty());
+  var id = sharedProperties2.getProperty();
   $scope.setlist = Setlists.get( sharedProperties2.getProperty() );
-
+  $scope.back = function() {
+    $location.path('tab/setlists');
+  };
   $scope.editBandRoles = function(id) {
-        $location.path('setlist/setlists/'+ id + '/roles');
+      $location.path('setlist-edit/setlists/'+ sharedProperties2.getProperty() +'/edit-setlist');
   }
 })
 
 .controller('EditSetlistDetailsCtrl', function($scope, Setlists, $location, $stateParams, $state, sharedProperties2, Users) {
    $scope.setlists = Setlists.get( sharedProperties2.getProperty() );
+   $scope.back = function() {
+    $location.path('setlist/setlists/' + sharedProperties2.getProperty() +'/info');
+   };
+   var setlist = Setlists.get( sharedProperties2.getProperty() );
    var id = Setlists.get(sharedProperties2.getProperty()).setlistId;
-
-           $scope.vocals = Users.roles("isVocals");
-           $scope.guitar = Users.roles("isGuitar");
-           $scope.bass = Users.roles("isBass");
-           $scope.keyboard = Users.roles("isKeyboard");
-           $scope.drums = Users.roles("isDrums");
-
-       $scope.back = function() {
-            $location.path('setlist/setlists' + id);
-       }
 
           $scope.model = { name: '' };
           $scope.form = {};
+
+          $scope.model.name = setlist.setlistName;
+          $scope.model.spotify = setlist.setlistSpotify;
+          $scope.model.notes = setlist.setlistNotes;
 
      $scope.verify = function() {
          $scope.req = $scope.form.newSetlist.$invalid;
@@ -330,57 +418,17 @@ angular.module('songDroid.controllers', [])
              var info = new Object();
                  info.name = $scope.model.name;
 
-                 if(!angular.isUndefinedOrNull($scope.model.tags)) {
-                   info.tags = $scope.model.tags;
+                 if(!angular.isUndefinedOrNull($scope.model.spotify)) {
+                   info.spotify = $scope.model.spotify;
                  } else {
-                   info.tags = "";
+                   info.spotify = "";
                  }
                  if(!angular.isUndefinedOrNull($scope.model.notes)) {
                    info.notes = $scope.model.notes;
                  } else {
                    info.notes = "";
                  }
-                 if(!angular.isUndefinedOrNull($scope.model.vocals1)) {
-                   info.vocals1 = $scope.model.vocals1;
-                 } else {
-                   info.vocals1 = getSetlist(sharedProperties2.getProperty()).setlistVocals1;
-                 }
-
-                 if(!angular.isUndefinedOrNull($scope.model.vocals2)) {
-                   info.vocals2 = $scope.model.vocals2;
-                 } else {
-                   info.vocals2 = getSetlist(sharedProperties2.getProperty()).setlistVocals2;
-                 }
-
-                 if(!angular.isUndefinedOrNull($scope.model.guitar1)) {
-                   info.guitar1 = $scope.model.guitar1;
-                 } else {
-                   info.guitar1 = getSetlist(sharedProperties2.getProperty()).setlistGuitar1;
-                 }
-
-                 if(!angular.isUndefinedOrNull($scope.model.guitar2)) {
-                   info.guitar2 = $scope.model.guitar2;
-                 } else {
-                   info.guitar2 = getSetlist(sharedProperties2.getProperty()).setlistGuitar2;
-                 }
-
-                 if(!angular.isUndefinedOrNull($scope.model.bass)) {
-                   info.bass = $scope.model.bass;
-                 } else {
-                   info.bass = getSetlist(sharedProperties2.getProperty()).setlistBass;
-                 }
-
-                 if(!angular.isUndefinedOrNull($scope.model.keyboard)) {
-                   info.keyboard = $scope.model.keyboard;
-                 } else {
-                   info.keyboard = getSetlist(sharedProperties2.getProperty()).setlistKeyboard;
-                 }
-
-                 if(!angular.isUndefinedOrNull($scope.model.drums)) {
-                   info.drums = $scope.model.drums;
-                 } else {
-                   info.drums = getSetlist(sharedProperties2.getProperty()).setlistDrums;
-                 }
+                 
               saveEditedSetlist(info, id);
               $location.path('setlist/setlists/' + id + '/info');
          } else if ($scope.form.newSetlist.$pristine == true) {
@@ -389,25 +437,23 @@ angular.module('songDroid.controllers', [])
      }
 })
 
-.controller('EditRolesCtrl', function($scope, Setlists, $location, $stateParams, $state, sharedProperties2) {
+.controller('EditRolesCtrl', function($scope, Setlists, $location, $stateParams, $state, sharedProperties2, Users) {
    $scope.setlists = Setlists.get( sharedProperties2.getProperty() );
    var id = Setlists.get(sharedProperties2.getProperty()).setlistId;
 
           $scope.model = { name: '' };
           $scope.form = {};
 
+           $scope.vocals = Users.roles("isVocals");
+           $scope.guitar = Users.roles("isGuitar");
+           $scope.bass = Users.roles("isBass");
+           $scope.keyboard = Users.roles("isKeyboard");
+           $scope.drums = Users.roles("isDrums");
+
      $scope.verify = function() {
          $scope.req = $scope.form.newSetlist.$invalid;
          if($scope.form.newSetlist.$valid == true) {
              var info = new Object();
-                 info.name = $scope.model.name;
-
-               if(!angular.isUndefinedOrNull($scope.model.notes)) {
-                 info.notes = $scope.model.notes;
-               } else {
-                 info.notes = "";
-               }
-
               if(!angular.isUndefinedOrNull($scope.model.vocals1)) {
                 info.vocals1 = $scope.model.vocals1;
               } else {
@@ -449,31 +495,89 @@ angular.module('songDroid.controllers', [])
               } else {
                 info.drums = "Unassigned";
               }
-              saveEditedSetlist(info, id);
+              saveEditedRoles(info, id);
               $location.path('setlist/setlists/' + id + '/info');
          }
      }
+
+    $scope.back = function() {
+      $location.path('tab/setlists');
+  };
 })
 
 .controller('SearchCtrl', function($scope, Songs, Setlists, $location, $stateParams, sharedProperties, sharedProperties2, $state, $ionicScrollDelegate ) {
+    
+    var type = "songs";
+    var column = "songTitle";
+
+    $scope.isActiveOne = true;
+
+    $scope.activateOne = function(){
+        $scope.isActiveOne = true;
+        $scope.isActiveTwo = false;
+        $scope.isActiveThree = false;
+        $scope.isActiveFour = false;
+        $scope.isActiveFive = false;
+
+        type = "songs";
+        column = "songTitle";
+    }
+    $scope.activateTwo = function(){
+        $scope.isActiveOne = false;
+        $scope.isActiveTwo = true;
+        $scope.isActiveThree = false;
+        $scope.isActiveFour = false;
+        $scope.isActiveFive = false;
+
+        type = "songs";
+        column = "songArtist";        
+    }
+    $scope.activateThree = function(){
+        $scope.isActiveOne = false;
+        $scope.isActiveTwo = false;
+        $scope.isActiveThree = true;
+        $scope.isActiveFour = false;
+        $scope.isActiveFive = false;
+
+        type = "songs";
+        column = "songAlbum";        
+    }
+    $scope.activateFour = function(){
+        $scope.isActiveOne = false;
+        $scope.isActiveTwo = false;
+        $scope.isActiveThree = false;
+        $scope.isActiveFour = true;
+        $scope.isActiveFive = false;
+
+        type = "setlists";
+        column = "setlistName";        
+    }
+    $scope.activateFive = function(){
+        $scope.isActiveOne = false;
+        $scope.isActiveTwo = false;
+        $scope.isActiveThree = false;
+        $scope.isActiveFour = false;
+        $scope.isActiveFive = true;
+
+        type = "songs";
+        column = "songTags";        
+    }                
 
           $scope.model = { query: '' };
           $scope.form = {};
 
-   $scope.search = function(column, type) {
+   $scope.search = function() {
         var string = $scope.model.query;
-
         console.log(column +"/"+ string);
 
         if( type == 'songs') {
             $scope.songs = Songs.search(column, string);
-            console.log(JSON.stringify($scope.results));
         } else if ( type == 'setlists') {
             $scope.setlists = Setlists.search(column, string);
         } else if ( type == 'tags'){
             var tag = Tags.search(column, string);
         } else {
-            console.log("wut");
+            console.log("tf u lookin' for bruh");
         }
    }
 
@@ -497,31 +601,33 @@ angular.module('songDroid.controllers', [])
     };
 })
 
-.controller('PracticeCtrl', function($scope, Setlists, $location, $stateParams, sharedProperties2, $state, $window) {
+.controller('PracticeCtrl', function($scope, Setlists, $location, $stateParams, sharedProperties, $state, $window) {
 
    var user = "F2AC443E-7F6D-4D8E-FFD1-5BEA2E195300";
-   $scope.setlists = Setlists.pinned(user);
 
     var pinned = Setlists.pinned(user);
-        pinned = pinned[0].
+    
+    $scope.isPinned = true;
 
-   $scope.addSetlist = function() {
-        $location.path('/tab/setlists/new');
-   };
+      if(!pinned[0].isUndefinedOrNull){
+        pinned = pinned[0].objectId;
+        $scope.isPinned = false;
+      }
+
+    console.log(pinned);
+
+    $scope.songs = Setlists.listed(pinned);
+
     $scope.go = function(id) {
-        sharedProperties2.setProperty(id);
-        $location.path('/setlist/setlists/' + id);
-    }
-    $scope.unpin = function(setlistId) {
-        spliceFromUser(user, setlistId);
-        $state.reload();
+        sharedProperties.setProperty(id);
+        $location.path('/tab/' + id +'/landing');
     }
 
-  $scope.goSpotify = function() {
-    var url = Setlists.get(sharedProperties2.getProperty()).setlistSpotify;
-    console.log(url);
-    $window.open(url);
-  };
+    $scope.goSpotify = function() {
+      var url = Setlists.get(sharedProperties2.getProperty()).setlistSpotify;
+      console.log(url);
+      $window.open(url);
+    };
 })
 
 .controller('SheetMusicCtrl', function($scope, sharedProperties, Songs, $location, $state, $stateParams) {
@@ -540,3 +646,26 @@ angular.module('songDroid.controllers', [])
       $location.path('song/' + id + '/info');
   };
 })
+
+.controller('SetlistRolesCtrl', function($scope, $stateParams, Setlists, sharedProperties2, $location) {
+  $scope.setlist = Setlists.get(sharedProperties2.getProperty());
+  $scope.back = function() {
+    $location.path('setlist/setlists/'+ sharedProperties2.getProperty() +'/action')
+  };
+  $scope.editRoles = function() {
+    $location.path('setlist-edit/setlists/'+sharedProperties2.getProperty()+'/roles/edit');
+  }
+})
+
+.controller('SetlistEditCtrl', function($scope, sharedProperties2, Setlists) {
+  $scope.sharedProperty2 = sharedProperties2.getProperty();
+  console.log(sharedProperties2.getProperty());
+})
+
+.controller('SetlistEditActionCtrl', function($scope, sharedProperties2, Setlists, $location) {
+  $scope.setlist = Setlists.get(sharedProperties2.getProperty());
+  $scope.go = function() {
+    $location.path('setlist-edit/setlists/'+sharedProperties2.getProperty()+'/roles/edit');
+  }
+})
+

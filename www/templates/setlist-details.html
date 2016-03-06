@@ -1,36 +1,16 @@
 <ion-view view-title="{{setlist.setlistName}}" cache-view="false">
     <ion-nav-bar class="bar-dark">
-        
+        <ion-nav-buttons side="left"><button class="button" ng-click="back()"><i class="ion-ios-arrow-back"></i></button></ion-nav-buttons>
         <ion-nav-buttons side="right"><button class="button" ng-click="editBandRoles({{setlist.setlistId}})"><i class="ion-edit"></i></button></ion-nav-buttons>
     </ion-nav-bar>
       <ion-content class="padding">
-        <p class="heading">Setlist Information:</p>
-        <div class="notes" style="margin: 20px auto;">
-            <p>Notes: </p>
-            <p>{{setlist.setlistNotes}}</p>
+        <div>
+            <p style="font-size 20px; font-weight: bold; margin: 10px auto 0;">{{setlist.setlistName}}</p>
+            <p style="font-size: 10px; margin: 10px auto 0; line-height: 12px;">Spotify URL: <span style="color: #33adff;">{{setlist.setlistSpotify}}</span></p>
         </div>
-        <div class="info band"> 
-            <p class="header">Assigned Band Roles:</p>
-            <label>Vocals 1: </label>
-            <p>{{setlist.setlistVocals1}}</p>
-
-            <label>Vocals 2: </label>
-            <p>{{setlist.setlistVocals2}}</p>
-
-            <label>Guitar 1: </label>
-            <p>{{setlist.setlistGuitar1}}</p>
-
-            <label>Guitar 2: </label>
-            <p>{{setlist.setlistGuitar2}}</p>
-
-            <label>Bass: </label>
-            <p>{{setlist.setlistBass}}</p>
-
-            <label>Keyboard: </label>
-            <p>{{setlist.setlistKeyboard}}</p>
-
-            <label>Drums: </label>
-            <p>{{setlist.setlistDrums}}</p>
+        <div class="notes" style="margin: 20px auto;">
+            <p style="color: #888; font-size: 12px;">Notes: </p>
+            <p style="min-height: 100px; background: #FFF; padding: 10px; font-size: 12px; color: #888;">{{setlist.setlistNotes}}</p>
         </div>
       </ion-content>
 </ion-view>
