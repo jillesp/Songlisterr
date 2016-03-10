@@ -333,9 +333,8 @@ function processSheetMusic(info, id) {
         collect = JSON.stringify(collect).replace(/[\"]/gi, '').replace(/\\/gi, '\"').replace(/\ /g, '_');;
 
     var sheet = info;
-    var lyrics = sheet.replace(/\[[^ ]\]/g, '').replace(/\[.[a-z#\d]+\]/g, '').replace(/\ (?=([a-z0-9]*">))/g, '_');
-    var chords = sheet.replace(/<.[^.>]+(?=\>)/g, '').replace(/[^[\n\r\ ](?![^[\]]*])/g, " ").replace(/\[/g, " ").replace(/ *[^\]](?=\[.+\])/g, 's')
-        chords = chords.replace(/ {1,3}[^\]](?=\[.)/g, '');
+    var lyrics = sheet.replace(/\[[^ ]\]/g, '').replace(/\[.[a-z#\d]+\]/g, '').replace(/(\[.\/.)+\]/g, '').replace(/\ (?=([a-z0-9]*">))/g, '_');
+    var chords = sheet.replace(/[^[\n\r\ \]](?![^[\]]*])/g, " ").replace(/[\[\]]/g, "");
     var headers = sheet.replace(/[^\<\>\n\r](?![^\<\>]*>)/g, '').replace(/<.[^.>]+(?=\=\")/g, '').replace(/[="]/g, '').replace(/(<\/a\>)/g, '').replace(/>/g, ':');
 
     var update = Backendless.Persistence.of(Songs).findById(songId);

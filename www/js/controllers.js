@@ -247,7 +247,7 @@ angular.module('songDroid.controllers', [])
   }
 })
 
-.controller('SongLandingCtrl', function($scope, $stateParams, Songs, $location, $state, sharedProperties, $window, $sanitize, $sce, $ionicScrollDelegate, $ionicLoading, $timeout, $anchorScroll) {
+.controller('SongLandingCtrl', function($scope, $stateParams, Songs, $location, $state, sharedProperties, $window, $sanitize, $sce, $ionicScrollDelegate, $ionicLoading, $timeout, $anchorScroll, $ionicPopover) {
 
   $scope.song = Songs.get(sharedProperties.getProperty());
   $scope.go = function(id) {
@@ -284,11 +284,12 @@ angular.module('songDroid.controllers', [])
   $scope.sections = sections;
   $scope.doJump = false;
   $scope.jump = function() {
-    if($scope.doJump == false){
-     $scope.doJump = true;
-    } else {
-     $scope.doJump = false;
-    }
+    // if($scope.doJump == false){
+    //  $scope.doJump = true;
+    // } else {
+    //  $scope.doJump = false;
+    // }
+    popover.show($event);
   };
 
   $scope.to_trusted = function(html_code) {
@@ -315,7 +316,7 @@ angular.module('songDroid.controllers', [])
     $scope.doJump = false;
  };
 
-   $scope.nextSong= function() {
+   $scope.prevSong= function() {
     $ionicLoading.show({
       content: 'Loading',
       animation: 'fade-in',
@@ -339,16 +340,16 @@ angular.module('songDroid.controllers', [])
       if(index < storage.length && index >= 0){   
         var nextSong = storage[index];
         sharedProperties.setProperty(nextSong);
-        $location.path('tab/' + index + '/landing');
+        $location.path('tab/' + nextSong + '/landing');
       } else {
         var nextSong = storage[0];
         sharedProperties.setProperty(nextSong);
-        $location.path('tab/' + index + '/landing');
+        $location.path('tab/' + nextSong + '/landing');
         console.log("Index defaulted to " + storage.length - 1);
       }
    };  
 
-   $scope.prevSong= function() {
+   $scope.nextSong = function() {
     $ionicLoading.show({
       content: 'Loading',
       animation: 'fade-in',
@@ -370,12 +371,11 @@ angular.module('songDroid.controllers', [])
       if(index >= 0 && index < storage.length){   
         var nextSong = storage[index];
         sharedProperties.setProperty(nextSong);
-        $location.path('tab/' + index + '/landing');
+        $location.path('tab/' + nextSong + '/landing');
       } else {
         var nextSong = storage[storage.length - 1];
-            index = storage.length - 1;
         sharedProperties.setProperty(nextSong);
-        $location.path('tab/' + index + '/landing');
+        $location.path('tab/' + nextSong + '/landing');
         console.log("Index defaulted to 0.");
       }
    };  
@@ -409,7 +409,7 @@ angular.module('songDroid.controllers', [])
     $window.open(url);
   };  
   $scope.back = function() {
-    $location.path('/tab/'+sharedProperties.getProperty()+'/landing');
+    $location.path('tab/'+sharedProperties.getProperty()+'/landing');
   }
 
 })
@@ -469,6 +469,9 @@ angular.module('songDroid.controllers', [])
 
 .controller('SongAddToSetlistCtrl', function($scope, sharedProperties, Setlists, $location) {
   $scope.setlists = Setlists.active();
+  $scope.back = function() {
+    $location.path('song/' + sharedProperties.getProperty() + '/action');
+  }
   $scope.go = function(id) {
       var update = addSongToSetlist(sharedProperties.getProperty(), id);
       $location.path('tab/browse');
@@ -624,7 +627,7 @@ angular.module('songDroid.controllers', [])
      }
 
     $scope.back = function() {
-      $location.path('tab/setlists');
+      $location.path('setlist/setlists/' + sharedProperties2.getProperty() + '/info');
   };
 })
 
@@ -761,6 +764,9 @@ angular.module('songDroid.controllers', [])
 
 .controller('SheetMusicCtrl', function($scope, sharedProperties, Songs, $location, $state, $stateParams) {
   $scope.song = Songs.get(sharedProperties.getProperty());
+  $scope.back = function() {
+    $location.path('song-edit/' + sharedProperties.getProperty() + '/edit-action');
+  }
   var song = Songs.get(sharedProperties.getProperty());
   var id = sharedProperties.getProperty();
        $scope.model = { sheet: '' };
@@ -793,6 +799,9 @@ angular.module('songDroid.controllers', [])
   $scope.setlist = Setlists.get(sharedProperties2.getProperty());
   $scope.go = function() {
     $location.path('setlist-edit/setlists/'+sharedProperties2.getProperty()+'/roles/edit');
+  }
+  $scope.back = function() {
+    $location.path('setlist/setlists/' + sharedProperties2.getProperty() + 'info');
   }
 })
 
