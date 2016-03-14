@@ -1,9 +1,3 @@
-var APPLICATION_ID = '48F7E0A1-E799-EE7C-FF56-D3687FF1BF00',
-    SECRET_KEY = 'B68610CE-62FD-34D1-FFD2-EF348786DD00',
-    VERSION = 'v1';
-
-    Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
-
 function Songs(args) {
     args = args || {};
     this.songId = args.songId || "";
@@ -378,7 +372,7 @@ var songChords = getObject(id).songChords;
 var objectId = getObject(id).objectId;
 var update = Backendless.Persistence.of(Songs).findById(objectId);
     update["songChords"] = songChords;
-var updated = Backendless.Persistence.of(Songs).save(update);
+    update = Backendless.Persistence.of(Songs).save(update);
 
 }
 
@@ -397,7 +391,7 @@ console.log(songChords);
 var objectId = getObject(id).objectId;
 var update = Backendless.Persistence.of(Songs).findById(objectId);
     update["songChords"] = songChords;
-var updated = Backendless.Persistence.of(Songs).save(update);
+    update = Backendless.Persistence.of(Songs).save(update);
 }
 
 function sendMail() {
@@ -439,3 +433,4 @@ function editProfileRoles(id,info){
     var updated = Backendless.Persistence.of(Backendless.User).save(update);
     console.log("Song edited: " + updated);
 }
+

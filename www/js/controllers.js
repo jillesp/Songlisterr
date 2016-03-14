@@ -2,13 +2,7 @@ angular.module('songDroid.controllers', [])
 
 .controller('BrowseCtrl', function($scope, Songs, $location, $stateParams, sharedProperties, $ionicSideMenuDelegate) {
 
-    $scope.songs = Songs.all();
-
-    // var localSongs = localStorage.getItem("offlineSongs");
-    //     localSongs = JSON.parse(localSongs);
-    // $scope.localSongs = localSongs;
-    // console.log(JSON.stringify(localSongs));
-
+    $scope.songs = Songs.active();
     $scope.isActiveOne = true;
     
     $scope.go = function(id) {
