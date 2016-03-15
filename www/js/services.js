@@ -10,10 +10,12 @@ angular.module('songDroid.services', ['LocalStorageModule'])
     Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
     localStorageService.set('localSongs', Backendless.Persistence.of(Songs).find());
     localStorageService.set('localSetlists', Backendless.Persistence.of(Setlists).find());
-    console.log("Connection sucess.");
+    localStorageService.set('localUsers', Backendless.Persistence.of(Backendless.User).find());
+    localStorageService.set('localRoles', Backendless.Persistence.of(Roles).find());
+    console.log("Services connection sucess.");
   }
   function doNotConnectFunction() {
-      console.log("Connection failed.");
+      console.log("Services connection failed.");
   }
 
   var i = new Image();
@@ -25,10 +27,6 @@ angular.module('songDroid.services', ['LocalStorageModule'])
 
 .service('Songs', function(localStorageService, Connect) {
 
-      var songs;
-      var dataStore;
-
-
       return {
         all: function() {
           songs = localStorageService.get('localSongs').data;
@@ -36,7 +34,6 @@ angular.module('songDroid.services', ['LocalStorageModule'])
         },
         active: function() {
           songs = localStorageService.get('localSongs').data;
-          console.log(songs);
           songs = songs.filter(
               function(songs){
                 return songs.isActive == 1
@@ -55,7 +52,7 @@ angular.module('songDroid.services', ['LocalStorageModule'])
         },
         count: function() {
           songs = localStorageService.get('localSongs');
-            var ctr = 1;
+            ctr = 1;
             for (var i = 0; i < songs.data.length; i++) {
                 ctr++;
             }
@@ -96,10 +93,7 @@ angular.module('songDroid.services', ['LocalStorageModule'])
     };
 })
 
-.service('Setlists', function(localStorageService, Connect) {
-    var songs;
-    var setlists;
-    var dataStore;    
+.service('Setlists', function(localStorageService, Connect) {  
 
     return {
       all: function() {
@@ -108,21 +102,24 @@ angular.module('songDroid.services', ['LocalStorageModule'])
       },
       count: function() {
         setlists = localStorageService.get('localSetlists').data;
-        var ctr = 1;
+        ctr = 1;
         for (var i = 0; i < setlists.data.length; i++) {
             ctr++;
         }
         return ctr;
-      },/******!!******/
+      },
       listed: function(setlistObjId) {
         setlists = localStorageService.get('localSetlists').data;
-        dataStore = Backendless.Persistence.of(Songs);
-          var findItems = {condition: "Setlists[setlistSongs].objectId='" + setlistObjId + "'"}; 
-          var foundItems = dataStore.find( findItems );
-          return foundItems.data;
+        songs = localStorageService.get('localSongs').data;
+        setlists = setlists.filter(
+          function(setlists){
+              return setlists.objectId == setlistObjId;
+          }
+        );
+        return setlists[0].setlistSongs;
       },
       get: function(setlistId) {
-        setlists = Backendless.Persistence.of(Setlists).find();
+        setlists = localStorageService.get('localSetlists');
           for (var i = 0; i < setlists.data.length; i++) {
             if (setlists.data[i].setlistId === parseInt(setlistId)) {
               return setlists.data[i];
@@ -131,10 +128,13 @@ angular.module('songDroid.services', ['LocalStorageModule'])
           return null;
       },
       active: function() {
-        setlists = Backendless.Persistence.of(Setlists).find();
-        var findActive = {condition: "isActive = 1"};
-        var foundActive = Backendless.Persistence.of(Setlists).find(findActive);
-        return foundActive.data;
+        setlists = localStorageService.get('localSetlists').data;
+        setlists = setlists.filter(
+            function(setlists){
+              return setlists.isActive == 1
+            }
+        );
+        return setlists;
       },
       search: function(type, string) {
         setlists = Backendless.Persistence.of(Setlists).find();
@@ -142,18 +142,39 @@ angular.module('songDroid.services', ['LocalStorageModule'])
           var foundItems = Backendless.Persistence.of(Setlists).find(query);
           return foundItems.data;
       },
-      pinned: function(user) {
-        setlists = Backendless.Persistence.of(Setlists).find();
-        dataStore = Backendless.Persistence.of(Setlists);
-          var findItems = {condition: "Users[setlists].objectId='" + user + "'"};
-          var foundItems = dataStore.find( findItems );
-          return foundItems.data;
-          console.log(foundItems.data);
+      pinned: function(userObjId) {
+        setlists = localStorageService.get('localSetlists').data;
+        users = localStorageService.get('localUsers').data;
+        users = users.filter(
+          function(users){
+            return users.objectId == userObjId;
+          }
+        )
+        return users[0].setlists;
       }
     }
 })
 
-.service('Users', function() {
+.service('Roles', function(localStorageService, Connect) {
+
+    return {
+      all: function() {
+        roles = localStorageService.get('localRoles').data;
+        return roles;
+      },
+      get: function(roleId) {
+        roles = localStorageService.get('localRoles');
+          for (var i = 0; i < roles.data.length; i++) {
+            if (roles.data[i].rolesId === parseInt(roleId)) {
+              return roles.data[i];
+            }
+          }
+          return null;
+      }
+    }
+})
+
+.service('Users', function(Connect) {
 
     return {
       all: function() {
@@ -198,3 +219,5 @@ angular.module('songDroid.services', ['LocalStorageModule'])
       }
     }
 })
+
+
