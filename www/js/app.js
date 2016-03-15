@@ -282,6 +282,17 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
                     }
                 })           
 
+                .state('setlist-edit.setlists-roles-add', {
+                    url: '/setlists/:setlistId/roles/add',
+                    cache: false,
+                    views: {
+                        'edit-action': {
+                            templateUrl: 'templates/new-role.html',
+                            controller: 'AddRolesCtrl'
+                        }
+                    }
+                })   
+
                 .state('setlist-edit.setlists-details-edit', {
                     url: '/setlists/:setlistId/edit-setlist',
                     cache: false,

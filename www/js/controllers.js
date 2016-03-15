@@ -2,13 +2,7 @@ angular.module('songDroid.controllers', [])
 
 .controller('BrowseCtrl', function($scope, Songs, $location, $stateParams, sharedProperties, $ionicSideMenuDelegate) {
 
-    $scope.songs = Songs.all();
-
-    // var localSongs = localStorage.getItem("offlineSongs");
-    //     localSongs = JSON.parse(localSongs);
-    // $scope.localSongs = localSongs;
-    // console.log(JSON.stringify(localSongs));
-
+    $scope.songs = Songs.active();
     $scope.isActiveOne = true;
     
     $scope.go = function(id) {
@@ -104,47 +98,47 @@ angular.module('songDroid.controllers', [])
                  info.name = "";
                }
 
-               if(!angular.isUndefinedOrNull($scope.model.vocals1)) {
-                 info.vocals1 = $scope.model.vocals1;
-               } else {
-                 info.vocals1 = "Unassigned";
-               }
+               // if(!angular.isUndefinedOrNull($scope.model.vocals1)) {
+               //   info.vocals1 = $scope.model.vocals1;
+               // } else {
+               //   info.vocals1 = "Unassigned";
+               // }
 
-               if(!angular.isUndefinedOrNull($scope.model.vocals2)) {
-                 info.vocals2 = $scope.model.vocals2;
-               } else {
-                 info.vocals2 = "Unassigned";
-               }
+               // if(!angular.isUndefinedOrNull($scope.model.vocals2)) {
+               //   info.vocals2 = $scope.model.vocals2;
+               // } else {
+               //   info.vocals2 = "Unassigned";
+               // }
 
-               if(!angular.isUndefinedOrNull($scope.model.guitar1)) {
-                 info.guitar1 = $scope.model.guitar1;
-               } else {
-                 info.guitar1 = "Unassigned";
-               }
+               // if(!angular.isUndefinedOrNull($scope.model.guitar1)) {
+               //   info.guitar1 = $scope.model.guitar1;
+               // } else {
+               //   info.guitar1 = "Unassigned";
+               // }
 
-               if(!angular.isUndefinedOrNull($scope.model.guitar2)) {
-                 info.guitar2 = $scope.model.guitar2;
-               } else {
-                 info.guitar2 = "Unassigned";
-               }
+               // if(!angular.isUndefinedOrNull($scope.model.guitar2)) {
+               //   info.guitar2 = $scope.model.guitar2;
+               // } else {
+               //   info.guitar2 = "Unassigned";
+               // }
 
-               if(!angular.isUndefinedOrNull($scope.model.bass)) {
-                 info.bass = $scope.model.bass;
-               } else {
-                 info.bass = "Unassigned";
-               }
+               // if(!angular.isUndefinedOrNull($scope.model.bass)) {
+               //   info.bass = $scope.model.bass;
+               // } else {
+               //   info.bass = "Unassigned";
+               // }
 
-               if(!angular.isUndefinedOrNull($scope.model.keyboard)) {
-                 info.keyboard = $scope.model.keyboard;
-               } else {
-                 info.keyboard = "Unassigned";
-               }
+               // if(!angular.isUndefinedOrNull($scope.model.keyboard)) {
+               //   info.keyboard = $scope.model.keyboard;
+               // } else {
+               //   info.keyboard = "Unassigned";
+               // }
 
-               if(!angular.isUndefinedOrNull($scope.model.drums)) {
-                 info.drums = $scope.model.drums;
-               } else {
-                 info.drums = "Unassigned";
-               }
+               // if(!angular.isUndefinedOrNull($scope.model.drums)) {
+               //   info.drums = $scope.model.drums;
+               // } else {
+               //   info.drums = "Unassigned";
+               // }
 
                if(!angular.isUndefinedOrNull($scope.model.notes)) {
                  info.notes = $scope.model.notes;
@@ -284,12 +278,11 @@ angular.module('songDroid.controllers', [])
   $scope.sections = sections;
   $scope.doJump = false;
   $scope.jump = function() {
-    // if($scope.doJump == false){
-    //  $scope.doJump = true;
-    // } else {
-    //  $scope.doJump = false;
-    // }
-    popover.show($event);
+    if($scope.doJump == false){
+     $scope.doJump = true;
+    } else {
+     $scope.doJump = false;
+    }
   };
 
   $scope.to_trusted = function(html_code) {
@@ -563,64 +556,23 @@ angular.module('songDroid.controllers', [])
      }
 })
 
-.controller('EditRolesCtrl', function($scope, Setlists, $location, $stateParams, $state, sharedProperties2, Users) {
+.controller('EditRolesCtrl', function($scope, Setlists, $location, $stateParams, $state, sharedProperties2, Users, Roles) {
    $scope.setlists = Setlists.get( sharedProperties2.getProperty() );
    var id = Setlists.get(sharedProperties2.getProperty()).setlistId;
 
-          $scope.model = { name: '' };
+          $scope.model = { roleName: '' };
           $scope.form = {};
 
-           $scope.vocals = Users.roles("isVocals");
-           $scope.guitar = Users.roles("isGuitar");
-           $scope.bass = Users.roles("isBass");
-           $scope.keyboard = Users.roles("isKeyboard");
-           $scope.drums = Users.roles("isDrums");
+           $scope.users = Users.all();
+           $scope.roles = Roles.all();
 
      $scope.verify = function() {
          $scope.req = $scope.form.newSetlist.$invalid;
          if($scope.form.newSetlist.$valid == true) {
              var info = new Object();
-              if(!angular.isUndefinedOrNull($scope.model.vocals1)) {
-                info.vocals1 = $scope.model.vocals1;
-              } else {
-                info.vocals1 = "Unassigned";
-              }
+                info.roleName = $scope.model.roleName;
+                info.roleUser = $scope.model.roleUser;
 
-              if(!angular.isUndefinedOrNull($scope.model.vocals2)) {
-                info.vocals2 = $scope.model.vocals2;
-              } else {
-                info.vocals2 = "Unassigned";
-              }
-
-              if(!angular.isUndefinedOrNull($scope.model.guitar1)) {
-                info.guitar1 = $scope.model.guitar1;
-              } else {
-                info.guitar1 = "Unassigned";
-              }
-
-              if(!angular.isUndefinedOrNull($scope.model.guitar2)) {
-                info.guitar2 = $scope.model.guitar2;
-              } else {
-                info.guitar2 = "Unassigned";
-              }
-
-              if(!angular.isUndefinedOrNull($scope.model.bass)) {
-                info.bass = $scope.model.bass;
-              } else {
-                info.bass = "Unassigned";
-              }
-
-              if(!angular.isUndefinedOrNull($scope.model.keyboard)) {
-                info.keyboard = $scope.model.keyboard;
-              } else {
-                info.keyboard = "Unassigned";
-              }
-
-              if(!angular.isUndefinedOrNull($scope.model.drums)) {
-                info.drums = $scope.model.drums;
-              } else {
-                info.drums = "Unassigned";
-              }
               saveEditedRoles(info, id);
               $location.path('setlist/setlists/' + id + '/info');
          }
@@ -628,7 +580,11 @@ angular.module('songDroid.controllers', [])
 
     $scope.back = function() {
       $location.path('setlist/setlists/' + sharedProperties2.getProperty() + '/info');
-  };
+    };
+
+    $scope.addAssignment = function() {
+      $location.path('setlist-edit/setlists/'+sharedProperties2.getProperty()+'/roles/add');
+    }
 })
 
 .controller('SearchCtrl', function($scope, Songs, Setlists, $location, $stateParams, sharedProperties, sharedProperties2, $state, $ionicScrollDelegate ) {
@@ -746,8 +702,6 @@ angular.module('songDroid.controllers', [])
         $scope.isPinned = false;
       }
 
-    console.log(pinned);
-
     $scope.songs = Setlists.listed(pinned);
 
     $scope.go = function(id) {
@@ -782,17 +736,25 @@ angular.module('songDroid.controllers', [])
 
 .controller('SetlistRolesCtrl', function($scope, $stateParams, Setlists, sharedProperties2, $location) {
   $scope.setlist = Setlists.get(sharedProperties2.getProperty());
+
   $scope.back = function() {
     $location.path('setlist/setlists/'+ sharedProperties2.getProperty() +'/action')
   };
   $scope.editRoles = function() {
     $location.path('setlist-edit/setlists/'+sharedProperties2.getProperty()+'/roles/edit');
   }
+
+  var roles = JSON.parse($scope.setlist.setlistRoles);
+  var arr = [];
+  for(var x in roles){
+    arr.push(roles[x]);
+  }
+
+  $scope.roles = arr;
 })
 
 .controller('SetlistEditCtrl', function($scope, sharedProperties2, Setlists) {
   $scope.sharedProperty2 = sharedProperties2.getProperty();
-  console.log(sharedProperties2.getProperty());
 })
 
 .controller('SetlistEditActionCtrl', function($scope, sharedProperties2, Setlists, $location) {
@@ -836,4 +798,20 @@ angular.module('songDroid.controllers', [])
     $scope.back = function() {
       $location.path('tab/profile');
     };
+})
+
+.controller('AddRolesCtrl', function($scope, sharedProperties2, Roles, $location, $state, $stateParams) {
+  $scope.back = function() {
+    $location.path('setlist-edit/setlists/'+ sharedProperties2.getProperty() +'/roles/edit');
+  }
+
+    $scope.model = { roleName: '' };
+    $scope.form = {};
+
+  $scope.verify = function() {
+     var  info =  $scope.model.roleName;
+          info = addRole(info);
+    $location.path('setlist-edit/setlists/'+ sharedProperties2.getProperty() +'/roles/edit');
+  }
+
 })
