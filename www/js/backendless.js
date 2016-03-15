@@ -2,7 +2,7 @@
       SECRET_KEY = 'B68610CE-62FD-34D1-FFD2-EF348786DD00',
       VERSION = 'v1';
 
-  // function doConnectFunction() {
+  function doConnectFunction() {
     Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
     localStorage.setItem('localSongs', JSON.stringify(Backendless.Persistence.of(Songs).find()));
     localStorage.setItem('localSetlists', JSON.stringify(Backendless.Persistence.of(Setlists).find()));
@@ -10,7 +10,7 @@
     localStorage.setItem('localRoles', JSON.stringify(Backendless.Persistence.of(Roles).find()));
 
     console.log("Backendless connection sucess.");
-  // }
+  }
   function doNotConnectFunction() {
       console.log("Backendless connection failed.");
   }
@@ -321,7 +321,6 @@ var songChords = getObject(id).songChords;
     songChords = songChords.replace(/F(?=[^#&*])/g, 'F*').replace(/F#/g, 'G&');
     songChords = songChords.replace(/G(?=[^#&*])/g, 'G*').replace(/G#/g, 'A&');
     songChords = songChords.replace(/[*]/g, '#').replace(/\&/g, '');
-// console.log(songChords);
 
 var objectId = getObject(id).objectId;
 var update = Backendless.Persistence.of(Songs).findById(objectId);
