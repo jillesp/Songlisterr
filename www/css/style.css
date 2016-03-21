@@ -46,8 +46,8 @@ p.required {padding: 5px 0; color: #990000; font-size: 10px; text-align: left;}
 .heading {font-size: 16px; color: #ff8533; text-align: center;}
 
 .search .container {overflow: scroll; clear: both;}
-.buttonGroup {box-shadow: 0px -5px 41px -8px rgba(0,0,0,0.75); border-top: 1px solid #F8F8F8; z-index: 5; width: 500px;}
-.buttonGroup .query {height: 40px; width: 100px; background: #FFF; color: #888; font-size: 12px; display: block; float: left;}
+.buttonGroup {box-shadow: 0px -5px 41px -8px rgba(0,0,0,0.75); border-top: 1px solid #F8F8F8; z-index: 5; width: 100%;}
+.buttonGroup .query {height: 40px; width: 20% !important; background: #FFF; color: #888; font-size: 12px; display: block; float: left;}
 .buttonGroup .query p {text-align: center; margin-top: 10px;}
 .underline {border-bottom: 3px #ff8533 solid;}
 
@@ -64,9 +64,11 @@ p.required {padding: 5px 0; color: #990000; font-size: 10px; text-align: left;}
 .search form .searchBtn i {color: #FFF;}
 
 .padding {border: none !important; width: 100% !important; max-width: 100% !important; margin-bottom: 20px !important;}
-.padding .wrapper {overflow: hidden; height: 70px !important; background: #FFF; width: 90% !important; max-width: 90% !important; margin: 10px auto;}
+.padding .wrapper {overflow: hidden; height: 70px !important; background: #FFF; width: 100% !important; max-width: 100% !important; margin: 0 auto; padding: 0 !important; border: none !important;}
 .padding .wrapper div {vertical-align: middle !important;}
-
+.padding .wrapper i {background: #ff8533; color: #FFF !important; border-radius: 100px; padding: 10px 15px !important; margin: 0;}
+.padding .wrapper .ion-android-more-vertical {padding: 10px 20px !important;}
+.padding .wrapper .ion-android-add-circle {padding: 10px 12px !important;}
 .action {padding: 0 !important; background: #f2f2f2;}
 
 .pane {background-color: #F8F8F8 !important;}
@@ -84,7 +86,7 @@ p.required {padding: 5px 0; color: #990000; font-size: 10px; text-align: left;}
 .sideMenu .button.two {float: left; width: 50%;}
 .sideMenu .button i {font-size: 32px; color: #FFF; vertical-align: middle; line-height: 70px;}
 
-.listItem {margin: 15px 10px 0; background: none;}
+.listItem {margin: 10px 10px 0; background: none;}
 .listItem .heading {font-weight: bold; font-size: 15px; text-align: left; margin: 0; color: #888;} 
 .listItem .subheading {font-size: 12px; margin: 0;}
 .listItem .subheading span:nth-child(1) {color: #ff8533;}
@@ -130,7 +132,7 @@ p.chorded.headers {line-height: 20px;}
 .tabs i {color: #888;}
 
 .tab-item {max-width: 100%; background: #FFF; opacity: 1;}
-.tab-item-active {background: #888; border-top: #ff8533 solid 4px; position: relative; margin-top: -10px; border-radius: 5px 5px 0 0;}
+.tab-item-active {background: #888; border-top: #ff8533 solid 4px; position: relative; border-radius: 5px 5px 0 0;}
 .tab-item-active i {color: #FFF;}
 .tab-item-active .tab-title {color: #FFF;}
 

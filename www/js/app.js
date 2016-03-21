@@ -9,10 +9,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
     if (window.StatusBar) {
       StatusBar.styleDefault();
     }
@@ -40,13 +36,12 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
     .state('tab', {
     url: "/tab",
     abstract: true,
-    cache: false,
     templateUrl: "templates/tabs.html"
     })
 
         .state('tab.search', {
             url: '/search',
-            cache: false,
+            
             views: {
                 'search': {
                     templateUrl: 'templates/search.html',
@@ -57,7 +52,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
         .state('tab.songs', {
             url: '/browse',
-            cache: false,
             views: {
                 'songs': {
                     templateUrl: 'templates/browse.html',
@@ -68,7 +62,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
             .state('tab.new-song', {
                 url: '/browse/new',
-                cache: false,
                 views: {
                     'songs': {
                         templateUrl: 'templates/new-song.html',
@@ -79,7 +72,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
             .state('tab.song-landing', {
                 url: '/:songId/landing',
-                cache: false,
                 views: {
                     'songs': {
                         templateUrl: 'templates/song-landing.html',
@@ -90,14 +82,12 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
                 .state('song', {
                     url: "/song",
-                    cache: false,
                     abstract: true,
                     templateUrl: "templates/song.html"
                 })
 
                     .state('song.song-info', {
                         url: '/:songId/info',
-                            cache: false,
                             views: {
                             'song-info': {
                                 templateUrl: 'templates/song-info.html',
@@ -108,7 +98,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
                     .state('song.song-action', {
                         url: '/:songId/action',
-                            cache: false,
                             views: {
                             'song-action': {
                                 templateUrl: 'templates/song-action.html',
@@ -119,7 +108,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
                     .state('song.song-setlist', {
                         url: '/:songId/add',
-                        cache: false,
                         views: {
                             'song-action': {
                                 templateUrl: 'templates/add-to-setlist.html',
@@ -130,14 +118,12 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
                 .state('song-edit', {
                     url: "/song-edit",
-                    cache: false,
                     abstract: true,
                     templateUrl: "templates/song-edit.html"
                 })
 
                     .state('song-edit.edit-info', {
                         url: '/:songId/edit-info',
-                        cache: false,
                         views: {
                             'edit-info': {
                                 templateUrl: 'templates/edit-song.html',
@@ -148,7 +134,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
                     .state('song-edit.edit-action', {
                         url: '/:songId/edit-action',
-                        cache: false,
                         views: {
                             'edit-action': {
                                 templateUrl: 'templates/edit-action.html',
@@ -159,7 +144,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
                         .state('song-edit.sheet-music', {
                             url: '/:songId/sheet-music',
-                            cache: false,
                             views: {
                                 'edit-action': {
                                     templateUrl: 'templates/sheet-music.html',
@@ -170,7 +154,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
         .state('tab.practice', {
         url: '/practice',
-        cache: false,
         views: {
                 'practice': {
                     templateUrl: 'templates/practice.html',
@@ -181,7 +164,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
         .state('tab.setlists', {
             url: '/setlists',
-            cache: false,
             views: {
                 'setlists': {
                   templateUrl: 'templates/setlists.html',
@@ -191,7 +173,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
         })
             .state('tab.setlist-new', {
                 url: '/setlists/new',
-                cache: false,
                 views: {
                     'setlists': {
                         templateUrl: 'templates/new-setlist.html',
@@ -202,7 +183,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
             .state('tab.setlists-items', {
                 url: '/setlists/:setlistId/items',
-                cache: false,
                 views: {
                     'setlists': {
                         templateUrl: 'templates/setlist-items.html',
@@ -213,14 +193,12 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
             .state('setlist', {
                 url: "/setlist",
-                cache: false,
                 abstract: true,
                 templateUrl: "templates/setlist.html"
             })
 
                 .state('setlist.setlists-actions', {
                     url: '/setlists/:setlistId/action',
-                    cache: false,
                     views: {
                         'setlist-action': {
                             templateUrl: 'templates/setlist-action.html',
@@ -231,7 +209,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
                 .state('setlist.setlists-details', {
                     url: '/setlists/:setlistId/info',
-                    cache: false,
                     views: {
                         'setlist-details': {
                             templateUrl: 'templates/setlist-details.html',
@@ -242,7 +219,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
                 .state('setlist.setlists-roles', {
                     url: '/setlists/:setlistId/roles',
-                    cache: false,
                     views: {
                         'setlist-action': {
                             templateUrl: 'templates/setlist-roles.html',
@@ -255,14 +231,13 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
             .state('setlist-edit', {
                 url: "/setlist-edit",
-                cache: false,
                 abstract: true,
                 templateUrl: "templates/setlist-edit.html"
             })
 
                 .state('setlist-edit.setlists-actions-edit', {
                     url: '/setlists/:setlistId/actions/edit',
-                    cache: false,
+                    
                     views: {
                         'edit-action': {
                             templateUrl: 'templates/setlist-edit-action.html',
@@ -273,7 +248,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
                 .state('setlist-edit.setlists-roles-edit', {
                     url: '/setlists/:setlistId/roles/edit',
-                    cache: false,
                     views: {
                         'edit-action': {
                             templateUrl: 'templates/edit-roles.html',
@@ -284,7 +258,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
                 .state('setlist-edit.setlists-roles-add', {
                     url: '/setlists/:setlistId/roles/add',
-                    cache: false,
                     views: {
                         'edit-action': {
                             templateUrl: 'templates/new-role.html',
@@ -295,7 +268,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
                 .state('setlist-edit.setlists-details-edit', {
                     url: '/setlists/:setlistId/edit-setlist',
-                    cache: false,
                     views: {
                         'edit-info': {
                             templateUrl: 'templates/edit-setlist.html',
@@ -306,7 +278,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
         .state('tab.profile', {
             url: '/profile',
-            cache: false,
             views: {
                 'profile': {
                     templateUrl: 'templates/profile.html',
@@ -317,7 +288,6 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
             .state('tab.profile-edit', {
                 url: '/profile-edit',
-                cache: false,
                 views: {
                     'profile': {
                         templateUrl: 'templates/profile-edit.html',

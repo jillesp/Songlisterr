@@ -97,7 +97,7 @@ function saveEditSong(id, info) {
     }
 
     update = Backendless.Persistence.of(Songs).save(update);
-    console.log("Song edited: " + updated);
+    console.log("Song edited: " + update);
 }
 
 function saveNewSong(info) {
