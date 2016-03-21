@@ -175,3 +175,13 @@ img.spotify {width: 42px;}
 
 .assignment label {margin-top: -5px;}
 .assignment p {margin: -2.5px 0 0 10px;}
+
+.bar.bar-dark {border: none;}
+.sortie {height: 40px; background: #444;}
+.sortie form {width: 100%; overflow: hidden;}
+.sortie .orderBy {float: left; background: none; width: 100%; outline: none; border: none; width: 65%; display: block; margin: 0 auto; padding: 10px;}
+.sortie * {float: left; color: #FFF !important; background: #444;}
+.sortie label {display: block; margin: 0 auto; font-size: 15px; text-align: center; padding: 10px; width: 25%; font-weight: bold;}
+.sortie button {display: block; width: 10%; float: right; outline: none; border: none; text-align: center;}
+.sortie button i {line-height: 41px;}
+.sortie:focus, .sortie:active {outline: none !important; border: none !important;}

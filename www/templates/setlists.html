@@ -5,7 +5,18 @@
   </ion-nav-bar>
 
   <ion-content class="padding action">
-      <ion-item class="wrapper" ng-repeat="setlist in setlists" type="item-text-wrap">
+      <div class="sortie">
+        <form ng-submit="verify()"> 
+          <label>Sort By:</label>
+          <select class="orderBy" ng-model="model.sortie">
+            <option value="title">Title</option>
+            <option value="size">Size</option>
+            <option value="created">Created</option>
+          </select>
+          <button ng-click="verify()"><i class="ion-ios-play"></i></button>
+        </form>
+      </div>
+      <ion-item class="wrapper" ng-repeat="setlist in setlists | orderBy:sortType:sortReverse" type="item-text-wrap">
          <ion-side-menus>
             <ion-side-menu-content edge-drag-threshold="50"> 
                 <div class="listItem" style="overflow:hidden;">

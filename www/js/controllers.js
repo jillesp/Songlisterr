@@ -1,10 +1,29 @@
 angular.module('songDroid.controllers', [])
 
-.controller('BrowseCtrl', function($scope, Songs, $location, $stateParams, sharedProperties, $ionicSideMenuDelegate) {
+.controller('BrowseCtrl', function($scope, Songs, $location, $stateParams, sharedProperties, $ionicSideMenuDelegate, $filter, $state) {
 
     $scope.songs = Songs.active();
     $scope.isActiveOne = true;
     
+          $scope.model = { sortie: '' };
+          $scope.form = {};
+          $scope.sortReverse  = false;
+          $scope.sortType = 'songTitle';
+
+     $scope.verify = function() {
+        if($scope.model.sortie == "title"){
+          $scope.sortType = 'songTitle';
+        }else if($scope.model.sortie == "artist"){
+          $scope.sortType = 'songArtist';
+        }else if($scope.model.sortie == "album"){
+          $scope.sortType = 'songAlbum';
+        }else if($scope.model.sortie == "created"){
+          $scope.sortType = 'songId';
+        }
+        $location.path('tab/browse');
+     }
+
+
     $scope.go = function(id) {
         sharedProperties.setProperty(id);
         $location.path('tab/' + id + '/landing');
@@ -46,6 +65,26 @@ angular.module('songDroid.controllers', [])
 
 .controller('SetlistsCtrl', function($scope, Setlists, $location, $stateParams, sharedProperties2) {
    $scope.setlists = Setlists.active();
+
+          $scope.model = { sortie: '' };
+          $scope.form = {};
+          $scope.sortReverse  = false;
+          $scope.sortType = 'setlistName';
+
+     $scope.verify = function() {
+        if($scope.model.sortie == "title"){
+          $scope.sortType = 'setlistName';
+          $scope.sortReverse  = false;
+        }else if($scope.model.sortie == "size"){
+          $scope.sortType = 'setlistSongs.length';
+          $scope.sortReverse  = false;
+        }else if($scope.model.sortie == "created"){
+          $scope.sortType = 'setlistId';
+          $scope.sortReverse  = true;
+        }
+        $location.path('tab/setlists');
+     }
+
    $scope.addSetlist = function() {
         $location.path('/tab/setlists/new');
    };
@@ -80,6 +119,9 @@ angular.module('songDroid.controllers', [])
    $scope.bass = Users.roles("isBass");
    $scope.keyboard = Users.roles("isKeyboard");
    $scope.drums = Users.roles("isDrums");
+
+
+
 
    var count = Setlists.count();
 

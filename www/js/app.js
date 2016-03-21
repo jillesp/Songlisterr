@@ -52,6 +52,7 @@ angular.module('songDroid', ['ionic', 'ngSanitize', 'hmTouchEvents','songDroid.c
 
         .state('tab.songs', {
             url: '/browse',
+            cache: false,
             views: {
                 'songs': {
                     templateUrl: 'templates/browse.html',
