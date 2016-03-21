@@ -170,3 +170,8 @@ img.spotify {width: 42px;}
 .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) {height: 40px !important;}
 
 .songLanding .option {font-size: 30px; margin: 15px 0 0 0; color: #1a1a1a;}
+
+.btnRole {width: 100%; background: #ff8533; outline: none; border: none; color: #FFF; height: 40px; margin: 20px 2.5%; width: 45%; float: left; border-radius: 10px;}
+
+.assignment label {margin-top: -5px;}
+.assignment p {margin: -2.5px 0 0 10px;}
