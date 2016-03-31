@@ -501,7 +501,23 @@ angular.module('songDroid.controllers', [])
     var content = "";
     var recipients = [];
 
-    sendEmail();
+
+ 
+
+  var roles = JSON.parse($scope.setlists.setlistRoles);
+  var arr = [];
+  for(var x in roles){
+    arr.push(roles[x]);
+  }
+  var Slicedroles=arr;
+  console.log(Slicedroles)
+  sendemailsetlists(Slicedroles.roleEmail)
+//setlistRoles[0].email
+// sendemailsetlists(setlistRoles.roleEmail);
+ 
+
+
+
   };  
 })
 
@@ -572,6 +588,10 @@ angular.module('songDroid.controllers', [])
              var info = new Object();
                 info.roleName = $scope.model.roleName;
                 info.roleUser = $scope.model.roleUser;
+
+              var test = Users.getemail($scope.model.roleUser);
+              console.log("roleEmail: "+test);
+                info.roleEmail = test.email;
 
               saveEditedRoles(info, id);
               $location.path('setlist/setlists/' + id + '/info');

@@ -212,6 +212,16 @@ angular.module('songDroid.services', ['LocalStorageModule'])
           }
           return null;
       },
+
+      getemail: function(userName) {
+        users = Backendless.Persistence.of(Backendless.User).find();
+          for (var i = 0; i < users.data.length; i++) {
+            if (users.data[i].username == userName) {
+              return users.data[i];
+            }
+          }
+          return null;
+      },
       active: function() {
         users = Backendless.Persistence.of(Backendless.User).find();
         var findActive = {condition: "isActive = 1"};

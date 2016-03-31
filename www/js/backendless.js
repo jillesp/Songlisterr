@@ -301,7 +301,7 @@ function saveEditedRoles(info, id) {
           arr.push(setlistRoles[x]);
         }
 
-        var role = {roleName: info.roleName, roleUser: info.roleUser};
+        var role = {roleName: info.roleName, roleUser: info.roleUser, roleEmail: info.roleEmail};
         arr.push(role);
 
         update["setlistRoles"] = JSON.stringify(arr);
@@ -358,14 +358,39 @@ function sendMail() {
      
     // prepare message bodies (plain and html) and attachment
     var bodyParts = new Bodyparts();
-    bodyParts.textmessage = "Check out this awesome code generation result";
-    bodyParts.htmlmessage = "Check out this <b>awesome</b> code generation result";
+    bodyParts.textmessage = "Congratulations, You have been Assigned to a setlist.";
+    bodyParts.htmlmessage = "Assigned Setlist";
     var attachments = [];
      
     // asynchronous call
     var responder = new Backendless.Async( successCallback, failureCallback );
     Backendless.Messaging.sendEmail( "Backendless code gen", bodyParts, [ "maoiwendell@yahoo.com" ], attachments, responder );
 }
+
+
+
+
+function sendemailsetlists(emailArray,setlistName){
+
+
+
+
+
+
+}
+
+/*
+email
+
+get emails of person with roles in setlists   [Success!]
+send to array
+then send array to backendless
+
+
+
+
+
+*/
 
 var offlineSongs = [];
 function pushOffline(songObject) {
