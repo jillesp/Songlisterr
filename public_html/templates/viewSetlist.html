@@ -1,0 +1,100 @@
+<ion-view>
+  <ion-nav-bar class="bar-dark"> 
+    <ion-nav-title>
+      {{title}}
+    </ion-nav-title>
+    <ion-nav-buttons side="left"><button class="button" ng-click="toggleLeft()"><i class="ion-grid"></i></button></ion-nav-buttons>
+  </ion-nav-bar>
+    <ion-side-menus>
+      <ion-side-menu-content class="webPadding"> 
+        <div class="sortie">
+          <form ng-submit="verify()"> 
+            <label>Sort By:</label>
+            <select class="orderBy" ng-model="model.sortie">
+              <option value="title">Title</option>
+              <option value="artist">Artist</option>
+              <option value="album">Album</option>
+              <option value="created">Created</option>
+            </select>
+            <button ng-click="verify()"><i class="ion-ios-play"></i></button>
+          </form>
+        </div>
+        <ion-list class="webList">
+          <ion-item class="webItemHeader">
+            <p class="id">ID</p>
+            <p class="title">Title</p>
+            <p class="artist">Artist</p>
+            <div class="crud">
+              <button ng-click="addSong()">+  Add Song</button>
+            </div>
+          </ion-item>
+          <ion-item ng-repeat="song in songs | orderBy:sortType:sortReverse" type="item-text-wrap" class="webItem">
+              <uib-accordion>
+                <uib-accordion-group class="accordionHeading">
+                  <uib-accordion-heading>
+                      <p class="id">{{song.songId}}</p>
+                      <p class="title">{{song.songTitle}}</p>
+                      <p class="artist">{{song.songArtist}}</p>
+                      <div class="crud setlistCrud">
+                        <!-- <button ng-click="edit({{song.songId}})">Edit</button> -->
+                        <button ng-click="delete({{song.songId}})">Remove from Setlist</button>
+                      </div>
+                  </uib-accordion-heading>
+                    <div class="webContents">
+                      <div class="mainies">
+                        <p class="songTitle"><span>Title:</span><span>{{song.songTitle}}</span></p>
+                        <p class="songArtist"><span>Artist:</span><span>{{song.songArtist}}</span></p>
+                        <p class="songAlbum"><span>Album:</span><span>{{song.songAlbumName}}</span></p>
+                        <p class="songBpm"><span>BPM:</span><span>{{song.songBPM}}</span></p>
+                        <p class="songKey"><span>Key:</span><span>{{song.songKey}}</span></p>
+
+                        <p class="songLink"><span>Youtube:</span><a href="{{song.songYoutube}}">Open Link</a></p>
+                        <p class="songLink"><span>Spotify:</span><a href="{{song.songSpotify}}">Open Link</a></p>
+                        <p class="songLink"><span>Custom:</span><a href="{{song.songOthers}}">Open Link</a></p>
+                      </div>
+                      <div class="lyrics">
+                        <label>Lyrics:</label>
+                        <p class="songLyrics" style="white-space:pre-wrap;">{{song.songLyrics}}</p>
+                      </div>
+                    </div>
+                </uib-accordion-group>
+              </uib-accordion>
+          </ion-item>
+        </ion-list>
+      </ion-side-menu-content>
+      <ion-side-menu side="left" width="300" class="sideMenuParent">
+        <ion-header-bar class="bar-energetic webMenuHeader">
+            <h1 class="title">Navigation</h1>
+        </ion-header-bar>
+        <ion-content class="webSideMenu">
+          <a href="" ng-click="goSongs()">
+            <i class="ion-ios-musical-notes"></i>
+            <p>Songs</p>
+          </a>
+          <a href="#" ng-click="goSetlists()" class="active">
+            <i class="ion-ios-list-outline"></i>
+            <p>Setlists</p>
+          </a>
+          <a href="">
+            <i class="ion-ios-people"></i>
+            <p>Members</p>
+          </a>
+        </ion-content>
+      </ion-side-menu>
+    </ion-side-menus>
+
+</ion-view>
+
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-body">
+          <p>Select song to add:</p>
+          <form ng-submit="add()">
+            <select ng-model="model.song">
+              <option ng-repeat="song in songs" value="{{song.songId}}">{{song.songTitle}}</option>
+            </select>
+            <button class="submit" type="submit" ng-click="add()">Add Song</button>
+          </form>
+        </div>
+    </script>
+
+</body>

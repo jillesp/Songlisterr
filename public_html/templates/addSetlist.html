@@ -1,0 +1,61 @@
+<ion-view>
+    <ion-nav-bar class="bar-dark">
+    <ion-nav-title>
+      Songs
+    </ion-nav-title>
+    <ion-nav-buttons side="left"><button class="button" ng-click="toggleLeft()"><i class="ion-grid"></i></button></ion-nav-buttons>
+    </ion-nav-bar>
+      <ion-side-menus>
+      <ion-side-menu-content class="webPadding"> 
+        <ol class="breadcrumb">
+          <li><a href="" ng-click="goSetlists()">Setlists</a></li>
+          <li class="active"><a href="#/addSetlist.html">Add New Setlist</a></li>
+        </ol>
+            <form ng-submit="verify()" name="form.newSetlist" novalidate="" class="webInfo setlists">
+                <div class="info">
+                    <p class="required" ng-show="req"><i class="ion-android-warning"></i>All fields are required.</p>
+                    <div>
+                        <label>Setlist Title:</label>
+                        <input type="text" placeholder="Title" ng-model="model.name" required>
+                    </div>
+                    
+                    <div>
+                        <label>Setlist Notes:</label>
+                        <textarea ng-model="model.notes" class="addNotes"></textarea>
+                    </div>
+
+                    <div class="links">
+                        <div>
+                            <label>Spotify Link: </label>
+                            <input type="text" placeholder="Spotify URL" ng-model="model.spotify" required>
+                        </div>
+                <button class="submit" type="submit">Submit</button>
+
+                    </div>
+
+                </div>
+               
+            </form>
+      </ion-side-menu-content>
+      <ion-side-menu side="left" width="300" class="sideMenuParent">
+        <ion-header-bar class="bar-energetic webMenuHeader">
+            <h1 class="title">Navigation</h1>
+        </ion-header-bar>
+        <ion-content class="webSideMenu">
+          <a href="" ng-click="goSongs()" class="">
+            <i class="ion-ios-musical-notes"></i>
+            <p>Songs</p>
+          </a>
+          <a href="#" ng-click="goSetlists()" class="active">
+            <i class="ion-ios-list-outline"></i>
+            <p>Setlists</p>
+          </a>
+          <a href="">
+            <i class="ion-ios-people"></i>
+            <p>Members</p>
+          </a>
+        </ion-content>
+      </ion-side-menu>
+    </ion-side-menus>
+        
+</ion-view>

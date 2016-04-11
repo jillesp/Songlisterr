@@ -1,0 +1,85 @@
+<ion-view>
+    <ion-nav-bar class="bar-dark">
+    <ion-nav-title>
+      {{title}}
+    </ion-nav-title>
+    <ion-nav-buttons side="left"><button class="button" ng-click="toggleLeft()"><i class="ion-grid"></i></button></ion-nav-buttons>
+    </ion-nav-bar>
+      <ion-side-menus>
+      <ion-side-menu-content class="webPadding"> 
+        <ol class="breadcrumb">
+          <li><a href="" ng-click="goSongs()">Songs</a></li>
+          <li class="active"><a href="#/editSong.html">Edit Song</a></li>
+        </ol>
+            <form ng-submit="saveEditSong()" name="form.newSong" novalidate="" class="webInfo">
+                <div class="info">
+                    <p class="required" ng-show="req">All fields are required.</p>
+                    <div>
+                        <label>Song Title:</label>
+                        <input type="text" placeholder="Title" ng-model="model.title">
+                    </div>
+                    
+                    <div>
+                        <label>Song Artist:</label>
+                        <input type="text" placeholder="Artist" ng-model="model.artist">
+                    </div>
+                    
+                    <div>
+                        <label>Album: </label>
+                        <input type="text" placeholder="Album Name" ng-model="model.albumName">
+                    </div>
+                    
+                    <div>
+                        <label>Key: </label>
+                        <input type="text" placeholder="Key" ng-model="model.key">
+                    </div>
+                    
+                    <div class="albumArt">
+                        <label>Upload New Album Art: </label>
+                        <input type="text" placeholder="Image URL" ng-model="model.albumArt">
+                    </div>
+
+                    <div class="links">
+                        <div>
+                            <label>Youtube Link: </label>
+                            <input type="text" placeholder="Youtube URL" ng-model="model.youtube">
+                        </div>
+                        <div>
+                            <label>Spotify Link: </label>
+                            <input type="text" placeholder="Spotify URL" ng-model="model.spotify">
+                        </div>
+                        <div>
+                            <label>Custom Link: </label>
+                            <input type="text" placeholder="Custom URL" ng-model="model.others">
+                        </div>
+                    </div>
+                </div>
+                <div class="addLyrics">
+                    <p class="instructions" style="line-height: 20px; color: #888;"><strong style="color:#000;">Instructions:</strong> <br/>Type in the lyrics and the chords, placing the latter on which text you want it to appear above. Enclose all chords in [brackets]. <br/><br/> To enable section jumping, wrap section in &lt;a&gt; tags, like so: <br/>&lt;a id="chorus"&gt;Lyrics here..&lt;/a&gt;</p>
+                    <textarea ng-model="model.sheet" style="padding: 10px;"></textarea>
+                </div>
+                <button class="submit" type="submit">Submit</button>
+            </form>
+      </ion-side-menu-content>
+      <ion-side-menu side="left" width="300" class="sideMenuParent">
+        <ion-header-bar class="bar-energetic webMenuHeader">
+            <h1 class="title">Navigation</h1>
+        </ion-header-bar>
+        <ion-content class="webSideMenu">
+          <a href="" ng-click="goSongs()" class="active">
+            <i class="ion-ios-musical-notes"></i>
+            <p>Songs</p>
+          </a>
+          <a href="#" ng-click="goSetlists()">
+            <i class="ion-ios-list-outline"></i>
+            <p>Setlists</p>
+          </a>
+          <a href="">
+            <i class="ion-ios-people"></i>
+            <p>Members</p>
+          </a>
+        </ion-content>
+      </ion-side-menu>
+    </ion-side-menus>
+        
+</ion-view>
