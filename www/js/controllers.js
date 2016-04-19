@@ -497,29 +497,23 @@ angular.module('songDroid.controllers', [])
   $scope.back = function() {
     $location.path('tab/setlists');
   };  
+
   $scope.sendEmail = function() {
-    var subject = "";
-    var content = "";
-    var recipients = [];
+    var title = sharedProperties2.getProperty.setlistName;
+    var subject = "Songlisterr";
+    var content = "Hello, you have been assigned a role in " + title + ". Please check the setlist information in your Songlisterr appication.";
 
-
- 
-
-  var roles = JSON.parse($scope.setlists.setlistRoles);
-  var arr = [];
-  for(var x in roles){
-    arr.push(roles[x]);
-  }
-  var Slicedroles=arr;
-  console.log(Slicedroles)
-  sendemailsetlists(Slicedroles.roleEmail)
-//setlistRoles[0].email
-// sendemailsetlists(setlistRoles.roleEmail);
- 
-
-
-
+    var roles = JSON.parse($scope.setlists.setlistRoles);
+    var arr = [];
+    for(var x in roles){
+      arr.push(roles[x].roleEmail);
+    }
+    // console.log(JSON.parse($scope.setlists.setlistRoles));
+    // console.log(arr)
+    sendMail(subject, content, arr);
   };  
+
+
 })
 
 .controller('SetlistDetailsCtrl', function($scope, $stateParams, Setlists, $location, $state, sharedProperties2) {

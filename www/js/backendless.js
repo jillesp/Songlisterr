@@ -325,7 +325,7 @@ var update = Backendless.Persistence.of(Songs).findById(objectId);
     update = Backendless.Persistence.of(Songs).save(update);
 }
 
-function sendMail() {
+function sendMail(subject, content, arr) {
     var successCallback = function( response ) {
       console.log( "[ASYNC] message has been sent" );
     };
@@ -336,39 +336,14 @@ function sendMail() {
      
     // prepare message bodies (plain and html) and attachment
     var bodyParts = new Bodyparts();
-    bodyParts.textmessage = "Congratulations, You have been Assigned to a setlist.";
-    bodyParts.htmlmessage = "Assigned Setlist";
+    bodyParts.textmessage = content;
+    bodyParts.htmlmessage = subject;
     var attachments = [];
      
     // asynchronous call
     var responder = new Backendless.Async( successCallback, failureCallback );
-    Backendless.Messaging.sendEmail( "Backendless code gen", bodyParts, [ "maoiwendell@yahoo.com" ], attachments, responder );
+    Backendless.Messaging.sendEmail( "Backendless code gen", bodyParts, arr, attachments, responder );
 }
-
-
-
-
-function sendemailsetlists(emailArray,setlistName){
-
-
-
-
-
-
-}
-
-/*
-email
-
-get emails of person with roles in setlists   [Success!]
-send to array
-then send array to backendless
-
-
-
-
-
-*/
 
 var offlineSongs = [];
 function pushOffline(songObject) {
