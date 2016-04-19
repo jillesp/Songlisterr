@@ -128,8 +128,9 @@ function deleteSetlist(id) {
 }
 
 function getObject(songId) {
-    var songs = localStorage.getItem('localSongs');
-        songs = JSON.parse(songs);
+    // var songs = localStorage.getItem('localSongs');
+    var songs = Backendless.Persistence.of(Songs).find();
+        // songs = JSON.parse(songs);
      for (var i = 0; i < songs.data.length; i++) {
         if (songs.data[i].songId === parseInt(songId)) {
           return (songs.data[i]);

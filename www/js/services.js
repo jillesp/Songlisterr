@@ -2,30 +2,30 @@ angular.module('songDroid.services', ['LocalStorageModule'])
 
 .service('Songs', function(localStorageService) {
 
-      function getData() {
+ function getData() {
 
-          var i = new Image();
+      var i = new Image();
 
-          i.onload = new function() {
+      i.onload = function() {
 
-              var APPLICATION_ID = '48F7E0A1-E799-EE7C-FF56-D3687FF1BF00',
-                  SECRET_KEY = 'B68610CE-62FD-34D1-FFD2-EF348786DD00',
-                  VERSION = 'v1';
+          var APPLICATION_ID = '48F7E0A1-E799-EE7C-FF56-D3687FF1BF00',
+              SECRET_KEY = 'B68610CE-62FD-34D1-FFD2-EF348786DD00',
+              VERSION = 'v1';
 
-            Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
-            localStorageService.set('localSongs', Backendless.Persistence.of(Songs).find());
-            localStorageService.set('localSetlists', Backendless.Persistence.of(Setlists).find());
-            localStorageService.set('localUsers', Backendless.Persistence.of(Backendless.User).find());
-            localStorageService.set('localRoles', Backendless.Persistence.of(Roles).find());
-            console.log("User is online. Connection success.");
-          }
-
-          i.onerror = function() {
-            console.log("User is offline.");
-          }
-
-          i.src = 'http://gfx2.hotmail.com/mail/uxp/w4/m4/pr014/h/s7.png?d=' + escape(Date());
+        Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
+        localStorageService.set('localSongs', Backendless.Persistence.of(Songs).find());
+        localStorageService.set('localSetlists', Backendless.Persistence.of(Setlists).find());
+        localStorageService.set('localUsers', Backendless.Persistence.of(Backendless.User).find());
+        localStorageService.set('localRoles', Backendless.Persistence.of(Roles).find());
+        console.log("User is online. Connection success.");
       }
+
+      i.onerror = function() {
+        console.log("User is offline.");
+      }
+
+      i.src = 'http://gfx2.hotmail.com/mail/uxp/w4/m4/pr014/h/s7.png?d=' + escape(Date());
+  }
 
       return {
         all: function() {
