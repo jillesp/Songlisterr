@@ -1,21 +1,9 @@
-<ion-view view-title="Songs">
+<ion-view view-title="Songs" cache-view="false">
   <ion-nav-bar class="bar-dark">
     <ion-nav-buttons side="right"><button class="button" ng-click="addNewSong()"><i class="ion-plus-round"></i></button></ion-nav-buttons> 
   </ion-nav-bar>
 
   <ion-content class="padding search">
-    <div class="sortie">
-      <form ng-submit="verify()"> 
-        <label>Sort By:</label>
-        <select class="orderBy" ng-model="model.sortie">
-          <option value="title">Title</option>
-          <option value="artist">Artist</option>
-          <option value="album">Album</option>
-          <option value="created">Created</option>
-        </select>
-        <button ng-click="verify()"><i class="ion-ios-play"></i></button>
-      </form>
-    </div>
     <div class="container browse">
       <div class="buttonGroup browse">
             <div class="query" ng-click="readConnection()" ng-class="{'underline': isActiveOne}"><p>All</p></div>
@@ -24,7 +12,7 @@
       </div>
     </div>    
     <ion-list ng-hide="offline">
-      <ion-item class="wrapper" ng-repeat="song in songs | orderBy:sortType:sortReverse" type="item-text-wrap" >
+      <ion-item class="wrapper" ng-repeat="song in songs" type="item-text-wrap" >
           <ion-side-menus>
             <ion-side-menu-content edge-drag-threshold="50"> 
                 <div class="listItem" ng-click="go({{song.songId}})">
