@@ -464,11 +464,12 @@ angular.module('songDroid.controllers', [])
     var title = getSetlist(sharedProperties2.getProperty()).setlistName;
     var content = "Hello, you have been assigned a role in " + title + ". Please check the setlist information in your Songlisterr application.";
     var roles = JSON.parse($scope.setlists.setlistRoles);
-    var arr = [];
+    var arr = [{},{}];
     for(var x in roles){
       arr.push(roles[x].roleEmail);
     }
 
+    console.log(arr);
     sendMail(content, arr);
   };  
 

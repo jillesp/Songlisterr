@@ -280,7 +280,17 @@ angular.module('songDroid.services', ['LocalStorageModule'])
         var objectid = 'F2AC443E-7F6D-4D8E-FFD1-5BEA2E195300';
         var objectdata = Backendless.Persistence.of(Backendless.User).findById(objectid);
         return objectdata;
+      },
+      getemail: function(userName) {
+        users = Backendless.Persistence.of(Backendless.User).find();
+          for (var i = 0; i < users.data.length; i++) {
+            if (users.data[i].username == userName) {
+              return users.data[i];
+            }
+          }
+          return null;
       }
+
     }
 })
 
