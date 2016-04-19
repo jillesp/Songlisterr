@@ -1,29 +1,30 @@
 angular.module('songDroid.services', ['LocalStorageModule'])
 
-.service('Connect', function(localStorageService) {
-
-  var APPLICATION_ID = '48F7E0A1-E799-EE7C-FF56-D3687FF1BF00',
-      SECRET_KEY = 'B68610CE-62FD-34D1-FFD2-EF348786DD00',
-      VERSION = 'v1';
-
-})
-
-.service('Songs', function(localStorageService, Connect) {
+.service('Songs', function(localStorageService) {
 
       function getData() {
 
-        console.log(Offline.check().offline);
+          var i = new Image();
 
-          if(Offline.check().offline == true) {
+          i.onload = new function() {
+
+              var APPLICATION_ID = '48F7E0A1-E799-EE7C-FF56-D3687FF1BF00',
+                  SECRET_KEY = 'B68610CE-62FD-34D1-FFD2-EF348786DD00',
+                  VERSION = 'v1';
+
             Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
             localStorageService.set('localSongs', Backendless.Persistence.of(Songs).find());
             localStorageService.set('localSetlists', Backendless.Persistence.of(Setlists).find());
             localStorageService.set('localUsers', Backendless.Persistence.of(Backendless.User).find());
             localStorageService.set('localRoles', Backendless.Persistence.of(Roles).find());
-            console.log("Services connection sucess.");
-          } else {
-            console.log("User is currently offline.");
+            console.log("User is online. Connection success.");
           }
+
+          i.onerror = function() {
+            console.log("User is offline.");
+          }
+
+          i.src = 'http://gfx2.hotmail.com/mail/uxp/w4/m4/pr014/h/s7.png?d=' + escape(Date());
       }
 
       return {
@@ -97,16 +98,32 @@ angular.module('songDroid.services', ['LocalStorageModule'])
     };
 })
 
-.service('Setlists', function(localStorageService, Connect) {  
+.service('Setlists', function(localStorageService) {  
 
-    function getData() {
+   function getData() {
+
+      var i = new Image();
+
+      i.onload = function() {
+
+          var APPLICATION_ID = '48F7E0A1-E799-EE7C-FF56-D3687FF1BF00',
+              SECRET_KEY = 'B68610CE-62FD-34D1-FFD2-EF348786DD00',
+              VERSION = 'v1';
+
         Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
         localStorageService.set('localSongs', Backendless.Persistence.of(Songs).find());
         localStorageService.set('localSetlists', Backendless.Persistence.of(Setlists).find());
         localStorageService.set('localUsers', Backendless.Persistence.of(Backendless.User).find());
         localStorageService.set('localRoles', Backendless.Persistence.of(Roles).find());
-        console.log("Services connection sucess.");
-    }
+        console.log("User is online. Connection success.");
+      }
+
+      i.onerror = function() {
+        console.log("User is offline.");
+      }
+
+      i.src = 'http://gfx2.hotmail.com/mail/uxp/w4/m4/pr014/h/s7.png?d=' + escape(Date());
+  }
 
     return {
       all: function() {
@@ -175,16 +192,32 @@ angular.module('songDroid.services', ['LocalStorageModule'])
     }
 })
 
-.service('Roles', function(localStorageService, Connect) {
+.service('Roles', function(localStorageService) {
 
     function getData() {
+
+      var i = new Image();
+
+      i.onload = function() {
+
+          var APPLICATION_ID = '48F7E0A1-E799-EE7C-FF56-D3687FF1BF00',
+              SECRET_KEY = 'B68610CE-62FD-34D1-FFD2-EF348786DD00',
+              VERSION = 'v1';
+
         Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
         localStorageService.set('localSongs', Backendless.Persistence.of(Songs).find());
         localStorageService.set('localSetlists', Backendless.Persistence.of(Setlists).find());
         localStorageService.set('localUsers', Backendless.Persistence.of(Backendless.User).find());
         localStorageService.set('localRoles', Backendless.Persistence.of(Roles).find());
-        console.log("Services connection sucess.");
-    }
+        console.log("User is online. Connection success.");
+      }
+
+      i.onerror = function() {
+        console.log("User is offline.");
+      }
+
+      i.src = 'http://gfx2.hotmail.com/mail/uxp/w4/m4/pr014/h/s7.png?d=' + escape(Date());
+  }
     
     return {
       all: function() {
@@ -205,7 +238,7 @@ angular.module('songDroid.services', ['LocalStorageModule'])
     }
 })
 
-.service('Users', function(Connect) {
+.service('Users', function() {
 
     return {
       all: function() {

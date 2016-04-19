@@ -186,8 +186,7 @@ function pinSetlist(setlistId) {
 
      var userObject = Backendless.Persistence.of(Backendless.User).findById("F2AC443E-7F6D-4D8E-FFD1-5BEA2E195300");
 
-     var unpin = userObject["setlists"].splice(0,5);
-     var stupidArray = userObject["setlists"].push({objectId: setlistObject.objectId,___class: "Setlists"});
+     var unpin = userObject["setlists"].splice(0,5,{objectId: setlistObject.objectId,___class: "Setlists"});
 
      var updated = Backendless.Persistence.of(Backendless.User).save(userObject);
      console.log("Setlist added to User: " + JSON.stringify(updated));

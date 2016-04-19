@@ -63,7 +63,7 @@ angular.module('songDroid.controllers', [])
 
 })
 
-.controller('SetlistsCtrl', function($scope, Setlists, $location, $stateParams, sharedProperties2) {
+.controller('SetlistsCtrl', function($scope, Setlists, $location, $stateParams, sharedProperties2, $state) {
    $scope.setlists = Setlists.active();
 
           $scope.model = { sortie: '' };
@@ -99,9 +99,10 @@ angular.module('songDroid.controllers', [])
         $location.path('/setlist/setlists/' + id +'/info');
     }
 
-    $scope.practice = function(){
-        var pin = pinSetlist(sharedProperties2.getProperty());
-        $location.path('tab/practice');
+    $scope.practice = function(id){
+        var pin = pinSetlist(id);
+        sharedProperties2.setProperty(id);
+        $location.path('/tab/setlists/' + id +'/items');
     }
 
     $scope.deleteItem = function(id) {
@@ -199,7 +200,7 @@ angular.module('songDroid.controllers', [])
 .controller('SetlistItemsCtrl', function($scope, Setlists, Songs, $location, $stateParams, sharedProperties, sharedProperties2, $state, $window) {
    $scope.title = getSetlist($stateParams.setlistId).setlistName;
 
-   var objectId = getSetlist($stateParams.setlistId).objectId;
+   var objectId = getSetlist(sharedProperties2.getProperty()).objectId;
    $scope.songs = Setlists.listed(objectId);
 
    $scope.go = function(id) {
