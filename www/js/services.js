@@ -11,12 +11,19 @@ angular.module('songDroid.services', ['LocalStorageModule'])
 .service('Songs', function(localStorageService, Connect) {
 
       function getData() {
-          Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
-          localStorageService.set('localSongs', Backendless.Persistence.of(Songs).find());
-          localStorageService.set('localSetlists', Backendless.Persistence.of(Setlists).find());
-          localStorageService.set('localUsers', Backendless.Persistence.of(Backendless.User).find());
-          localStorageService.set('localRoles', Backendless.Persistence.of(Roles).find());
-          console.log("Services connection sucess.");
+
+        console.log(Offline.check().offline);
+
+          if(Offline.check().offline == true) {
+            Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
+            localStorageService.set('localSongs', Backendless.Persistence.of(Songs).find());
+            localStorageService.set('localSetlists', Backendless.Persistence.of(Setlists).find());
+            localStorageService.set('localUsers', Backendless.Persistence.of(Backendless.User).find());
+            localStorageService.set('localRoles', Backendless.Persistence.of(Roles).find());
+            console.log("Services connection sucess.");
+          } else {
+            console.log("User is currently offline.");
+          }
       }
 
       return {

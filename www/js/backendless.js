@@ -1,24 +1,3 @@
-  var APPLICATION_ID = '48F7E0A1-E799-EE7C-FF56-D3687FF1BF00',
-      SECRET_KEY = 'B68610CE-62FD-34D1-FFD2-EF348786DD00',
-      VERSION = 'v1';
-
-  function doConnectFunction() {
-    Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
-    localStorage.setItem('localSongs', JSON.stringify(Backendless.Persistence.of(Songs).find()));
-    localStorage.setItem('localSetlists', JSON.stringify(Backendless.Persistence.of(Setlists).find()));
-    localStorage.setItem('localUsers', JSON.stringify(Backendless.Persistence.of(Backendless.User).find()));
-    localStorage.setItem('localRoles', JSON.stringify(Backendless.Persistence.of(Roles).find()));
-
-    console.log("Backendless connection sucess.");
-  }
-  function doNotConnectFunction() {
-      console.log("Backendless connection failed.");
-  }
-
-  var i = new Image();
-  i.onload = doConnectFunction;
-  i.onerror = doNotConnectFunction;
-  i.src = 'http://gfx2.hotmail.com/mail/uxp/w4/m4/pr014/h/s7.png?d=' + escape(Date());
 
 function Songs(args) {
     args = args || {};
