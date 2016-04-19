@@ -133,7 +133,7 @@ angular.module('songDroid.services', ['LocalStorageModule'])
       },
       count: function() {
         getData();
-        setlists = localStorageService.get('localSetlists').data;
+        setlists = localStorageService.get('localSetlists');
         ctr = 1;
         for (var i = 0; i < setlists.data.length; i++) {
             ctr++;

@@ -99,48 +99,6 @@ angular.module('songDroid.controllers', [])
                  info.name = "";
                }
 
-               // if(!angular.isUndefinedOrNull($scope.model.vocals1)) {
-               //   info.vocals1 = $scope.model.vocals1;
-               // } else {
-               //   info.vocals1 = "Unassigned";
-               // }
-
-               // if(!angular.isUndefinedOrNull($scope.model.vocals2)) {
-               //   info.vocals2 = $scope.model.vocals2;
-               // } else {
-               //   info.vocals2 = "Unassigned";
-               // }
-
-               // if(!angular.isUndefinedOrNull($scope.model.guitar1)) {
-               //   info.guitar1 = $scope.model.guitar1;
-               // } else {
-               //   info.guitar1 = "Unassigned";
-               // }
-
-               // if(!angular.isUndefinedOrNull($scope.model.guitar2)) {
-               //   info.guitar2 = $scope.model.guitar2;
-               // } else {
-               //   info.guitar2 = "Unassigned";
-               // }
-
-               // if(!angular.isUndefinedOrNull($scope.model.bass)) {
-               //   info.bass = $scope.model.bass;
-               // } else {
-               //   info.bass = "Unassigned";
-               // }
-
-               // if(!angular.isUndefinedOrNull($scope.model.keyboard)) {
-               //   info.keyboard = $scope.model.keyboard;
-               // } else {
-               //   info.keyboard = "Unassigned";
-               // }
-
-               // if(!angular.isUndefinedOrNull($scope.model.drums)) {
-               //   info.drums = $scope.model.drums;
-               // } else {
-               //   info.drums = "Unassigned";
-               // }
-
                if(!angular.isUndefinedOrNull($scope.model.notes)) {
                  info.notes = $scope.model.notes;
                } else {
@@ -150,9 +108,13 @@ angular.module('songDroid.controllers', [])
                info.count = count++;
 
               saveNewSetlist(info);
-              $state.go('tab.setlists', {}, {cache: false});
+              $state.go('tab.setlists');
          }
      }
+
+     $scope.back = function() {
+        $location.path('tab/setlists');
+     };
 })
 
 .controller('SetlistItemsCtrl', function($scope, Setlists, Songs, $location, $stateParams, sharedProperties, sharedProperties2, $state, $window) {
@@ -305,7 +267,7 @@ angular.module('songDroid.controllers', [])
  $scope.jumpTo = function() {
     var loc = $scope.model.section;
     $location.hash(loc);
-    $ionicScrollDelegate.scrollBy(0, -60, true);
+    $ionicScrollDelegate.scrollBy(0, -100, true);
 
     $scope.doJump = false;
  };
