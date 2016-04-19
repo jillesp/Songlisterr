@@ -325,7 +325,7 @@ var update = Backendless.Persistence.of(Songs).findById(objectId);
     update = Backendless.Persistence.of(Songs).save(update);
 }
 
-function sendMail(subject, content, arr) {
+function sendMail(content, arr) {
     var successCallback = function( response ) {
       console.log( "[ASYNC] message has been sent" );
     };
@@ -337,12 +337,11 @@ function sendMail(subject, content, arr) {
     // prepare message bodies (plain and html) and attachment
     var bodyParts = new Bodyparts();
     bodyParts.textmessage = content;
-    bodyParts.htmlmessage = subject;
     var attachments = [];
      
     // asynchronous call
     var responder = new Backendless.Async( successCallback, failureCallback );
-    Backendless.Messaging.sendEmail( "Backendless code gen", bodyParts, arr, attachments, responder );
+    Backendless.Messaging.sendEmail( "Songlisterr Update", bodyParts, arr, attachments, responder );
 }
 
 var offlineSongs = [];
