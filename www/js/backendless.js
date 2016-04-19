@@ -139,8 +139,8 @@ function getObject(songId) {
 }
 
 function getSetlist(setlistId) {
-    var setlists = localStorage.getItem('localSetlists');
-        setlists = JSON.parse(setlists);
+    var setlists = Backendless.Persistence.of(Setlists).find();
+        // setlists = JSON.parse(setlists);
      for (var i = 0; i < setlists.data.length; i++) {
         if (setlists.data[i].setlistId === parseInt(setlistId)) {
           return (setlists.data[i]);

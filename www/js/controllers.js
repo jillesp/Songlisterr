@@ -118,7 +118,7 @@ angular.module('songDroid.controllers', [])
 })
 
 .controller('SetlistItemsCtrl', function($scope, Setlists, Songs, $location, $stateParams, sharedProperties, sharedProperties2, $state, $window) {
-   $scope.title = getSetlist($stateParams.setlistId).setlistName;
+   $scope.title = Setlists.get( sharedProperties2.getProperty() ).setlistName;
 
    var objectId = getSetlist(sharedProperties2.getProperty()).objectId;
    $scope.songs = Setlists.listed(objectId);

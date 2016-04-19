@@ -6,9 +6,9 @@
 
   <ion-content class="padding">
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="setlist in setlists" type="item-text-wrap">
-          <img ng-src="https://pixabay.com/static/uploads/photo/2014/03/25/17/00/plus-297823_640.png" ng-click="go({{setlist.setlistId}})">
+          <img ng-src="http://thumbs.dreamstime.com/x/music-logo-13731704.jpg" ng-click="go({{setlist.setlistId}})">
           <h2 ng-click="go({{setlist.setlistId}})">{{setlist.setlistName}}</h2>
-          <p ng-click="go({{setlist.setlistId}})"><!-- {{setlist.setlistCreator}} -->Hi</p>
+          <p ng-click="go({{setlist.setlistId}})"><span>{{setlist.setlistSongs.length}}</span> Tracks, by <span style="color: #00cc44;">{{setlist.ownerId}}</span></p>
       </ion-item>
     </ion-list>
   </ion-content>
